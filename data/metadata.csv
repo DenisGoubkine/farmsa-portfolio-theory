@@ -1,0 +1,51 @@
+ticker,sector,sector_abbr,industry,name
+AAPL,Technology,Tech,Consumer Electronics,Apple Inc.
+ABBV,Healthcare,Health,Drug Manufacturers - General,AbbVie Inc.
+ADBE,Technology,Tech,Software - Application,Adobe Inc.
+AMT,Real Estate,RE,REIT - Specialty,American Tower Corporation (REI
+AMZN,Cons. Discr.,Discr,Internet Retail,"Amazon.com, Inc."
+APD,Materials,Mat,Specialty Chemicals,"Air Products and Chemicals, Inc"
+AXP,Financials,Fin,Credit Services,American Express Company
+BA,Industrials,Indust,Aerospace & Defense,Boeing Company (The)
+BAC,Financials,Fin,Banks - Diversified,Bank of America Corporation
+BLK,Financials,Fin,Asset Management,"BlackRock, Inc."
+CAT,Industrials,Indust,Farm & Heavy Construction Machinery,"Caterpillar, Inc."
+CCI,Real Estate,RE,REIT - Specialty,Crown Castle Inc.
+COP,Energy,Energy,Oil & Gas E&P,ConocoPhillips
+COST,Cons. Staples,Staples,Discount Stores,Costco Wholesale Corporation
+CRM,Technology,Tech,Software - Application,"Salesforce, Inc."
+CSCO,Technology,Tech,Communication Equipment,"Cisco Systems, Inc."
+CVX,Energy,Energy,Oil & Gas Integrated,Chevron Corporation
+DIS,Communication,Comm,Entertainment,Walt Disney Company (The)
+DUK,Utilities,Util,Utilities - Regulated Electric,Duke Energy Corporation (Holdin
+ECL,Materials,Mat,Specialty Chemicals,Ecolab Inc.
+GOOGL,Communication,Comm,Internet Content & Information,Alphabet Inc.
+GS,Financials,Fin,Capital Markets,"Goldman Sachs Group, Inc. (The)"
+HD,Cons. Discr.,Discr,Home Improvement Retail,"Home Depot, Inc. (The)"
+HON,Industrials,Indust,Conglomerates,Honeywell International Inc.
+INTC,Technology,Tech,Semiconductors,Intel Corporation
+JNJ,Healthcare,Health,Drug Manufacturers - General,Johnson & Johnson
+JPM,Financials,Fin,Banks - Diversified,JP Morgan Chase & Co.
+KO,Cons. Staples,Staples,Beverages - Non-Alcoholic,Coca-Cola Company (The)
+LIN,Materials,Mat,Specialty Chemicals,Linde plc
+LLY,Healthcare,Health,Drug Manufacturers - General,Eli Lilly and Company
+MCD,Cons. Discr.,Discr,Restaurants,McDonald's Corporation
+META,Communication,Comm,Internet Content & Information,"Meta Platforms, Inc."
+MRK,Healthcare,Health,Drug Manufacturers - General,"Merck & Company, Inc."
+MS,Financials,Fin,Capital Markets,Morgan Stanley
+MSFT,Technology,Tech,Software - Infrastructure,Microsoft Corporation
+NEE,Utilities,Util,Utilities - Regulated Electric,"NextEra Energy, Inc."
+NFLX,Communication,Comm,Entertainment,"Netflix, Inc."
+NKE,Cons. Discr.,Discr,Footwear & Accessories,"Nike, Inc."
+NVDA,Technology,Tech,Semiconductors,NVIDIA Corporation
+PEP,Cons. Staples,Staples,Beverages - Non-Alcoholic,"Pepsico, Inc."
+PFE,Healthcare,Health,Drug Manufacturers - General,"Pfizer, Inc."
+PG,Cons. Staples,Staples,Household & Personal Products,Procter & Gamble Company (The)
+PLD,Real Estate,RE,REIT - Industrial,"Prologis, Inc."
+SBUX,Cons. Discr.,Discr,Restaurants,Starbucks Corporation
+SHW,Materials,Mat,Specialty Chemicals,Sherwin-Williams Company (The)
+SLB,Energy,Energy,Oil & Gas Equipment & Services,SLB Limited
+SO,Utilities,Util,Utilities - Regulated Electric,Southern Company (The)
+UNH,Healthcare,Health,Healthcare Plans,UnitedHealth Group Incorporated
+UPS,Industrials,Indust,Integrated Freight & Logistics,"United Parcel Service, Inc."
+XOM,Energy,Energy,Oil & Gas Integrated,Exxon Mobil Corporation
