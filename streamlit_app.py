@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -689,6 +690,261 @@ def clean_stream_text(text: str) -> str:
     return "\n".join(cleaned_lines)
 
 
+# ── M1 / M2 live-render helpers ──────────────────────────────────────────
+
+@st.cache_data(show_spinner=False)
+def _m1_full_diag() -> dict:
+    from sklearn.covariance import LedoitWolf
+    _, returns, _ = load_data()
+    N = returns.shape[1]
+    S = returns.cov().values
+    std = np.sqrt(np.diag(S))
+    corr = S / np.outer(std, std)
+    np.fill_diagonal(corr, 1.0)
+    rho_bar = float((corr.sum() - N) / (N * (N - 1)))
+    F = rho_bar * np.outer(std, std)
+    np.fill_diagonal(F, np.diag(S))
+    lw_fit = LedoitWolf().fit(returns.values)
+    return {
+        "alpha": float(lw_fit.shrinkage_),
+        "rho_bar": rho_bar,
+        "S": S,
+        "F": F,
+        "LW": lw_fit.covariance_,
+        "N": N,
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _m1_rolling_diag(roll: int = 252, step: int = 5):
+    from sklearn.covariance import LedoitWolf
+    _, returns, _ = load_data()
+    T = returns.shape[0]
+    dates, alphas, rho_bars, cond_s, cond_lw = [], [], [], [], []
+    for i in range(roll, T, step):
+        w = returns.iloc[i - roll : i]
+        S_w = w.cov().values
+        Nw = S_w.shape[0]
+        std_w = np.sqrt(np.diag(S_w))
+        c_w = S_w / np.outer(std_w, std_w)
+        np.fill_diagonal(c_w, 1.0)
+        lw = LedoitWolf().fit(w.values)
+        dates.append(returns.index[i])
+        alphas.append(float(lw.shrinkage_))
+        rho_bars.append(float((c_w.sum() - Nw) / (Nw * (Nw - 1))))
+        cond_s.append(float(np.linalg.cond(S_w)))
+        cond_lw.append(float(np.linalg.cond(lw.covariance_)))
+    return (
+        pd.DatetimeIndex(dates),
+        np.array(alphas),
+        np.array(rho_bars),
+        np.array(cond_s),
+        np.array(cond_lw),
+    )
+
+
+@st.cache_data(show_spinner=False)
+def _rolling_backtest(estimator_key: str, lookback: int = 252, rebal: int = 21):
+    _, returns, _ = load_data()
+    T, N = returns.shape
+    est_fn = ESTIMATORS[estimator_key]
+
+    def min_var(cov):
+        n = cov.shape[0]
+        res = minimize(
+            lambda w: w @ cov @ w,
+            np.ones(n) / n,
+            method="SLSQP",
+            bounds=[(0, 1)] * n,
+            constraints=[{"type": "eq", "fun": lambda w: w.sum() - 1}],
+            options={"ftol": 1e-12, "maxiter": 1000},
+        )
+        return res.x if res.success else np.ones(n) / n
+
+    ports: dict[str, list] = {"Equal Weight": [], "Sample Cov MVO": [], "Estimator MVO": []}
+    idx_list: list = []
+    for start in range(lookback, T - rebal, rebal):
+        train = returns.iloc[start - lookback : start]
+        test = returns.iloc[start : start + rebal]
+        w_eq = np.ones(N) / N
+        w_sc = min_var(train.cov().values)
+        w_est = min_var(est_fn(train))
+        for di in range(len(test)):
+            r = test.iloc[di].values
+            ports["Equal Weight"].append(w_eq @ r)
+            ports["Sample Cov MVO"].append(w_sc @ r)
+            ports["Estimator MVO"].append(w_est @ r)
+            idx_list.append(test.index[di])
+
+    ret_df = pd.DataFrame(ports, index=idx_list)
+    pv_df = (1 + ret_df).cumprod()
+    return ret_df, pv_df
+
+
+def _drawdown(pv: pd.Series) -> pd.Series:
+    return (pv / pv.cummax()) - 1
+
+
+def _backtest_chart_and_table(
+    ret_df: pd.DataFrame,
+    pv_df: pd.DataFrame,
+    labels: dict[str, str],
+    colors: dict[str, str],
+) -> None:
+    fig, axes = plt.subplots(
+        2, 1, figsize=(12, 8), sharex=True,
+        gridspec_kw={"height_ratios": [2, 1], "hspace": 0.08},
+    )
+    for k in pv_df.columns:
+        axes[0].plot(pv_df.index, pv_df[k], label=labels.get(k, k), color=colors[k], lw=1.8)
+    axes[0].set_ylabel("Portfolio Value ($1 start)")
+    axes[0].set_title("Rolling Out-of-Sample Backtest  (252-day window, monthly rebalance)", fontweight="bold")
+    axes[0].legend(loc="upper left", fontsize=10)
+    axes[0].grid(True, alpha=0.2)
+
+    for k in pv_df.columns:
+        dd = _drawdown(pv_df[k]) * 100
+        axes[1].fill_between(pv_df.index, dd, 0, alpha=0.35, color=colors[k])
+        axes[1].plot(pv_df.index, dd, color=colors[k], lw=1.2)
+    axes[1].set_ylabel("Drawdown (%)")
+    axes[1].grid(True, alpha=0.2)
+
+    plt.tight_layout()
+    st.pyplot(fig, clear_figure=True)
+
+    rows = {}
+    for k, lbl in labels.items():
+        r = ret_df[k]
+        ar = r.mean() * 252
+        av = r.std() * np.sqrt(252)
+        maxdd = _drawdown((1 + r).cumprod()).min()
+        rows[lbl] = {
+            "Ann. Return (%)": round(ar * 100, 2),
+            "Ann. Volatility (%)": round(av * 100, 2),
+            "Sharpe Ratio": round(ar / av if av > 0 else 0, 3),
+            "Max Drawdown (%)": round(maxdd * 100, 2),
+            "Calmar Ratio": round(ar / abs(maxdd) if maxdd < 0 else float("nan"), 3),
+        }
+    st.dataframe(pd.DataFrame(rows).T, use_container_width=True)
+
+
+_M1_COLORS = {"Equal Weight": "#888888", "Sample Cov MVO": "#2c5282", "Estimator MVO": "#c53030"}
+_M1_LABELS = {"Equal Weight": "Equal Weight (1/N)", "Sample Cov MVO": "Sample Covariance MVO", "Estimator MVO": "LW Estimator MVO"}
+_M2_COLORS = {"Equal Weight": "#888888", "Sample Cov MVO": "#2c5282", "Estimator MVO": "#c53030"}
+_M2_LABELS = {"Equal Weight": "Equal Weight (1/N)", "Sample Cov MVO": "Sample Covariance MVO", "Estimator MVO": "RMT Cleaned MVO"}
+
+
+def render_m1_live_output(cell_index: int) -> bool:
+    if cell_index == 4:
+        # Eigenvalue spectrum + heatmaps + shrinkage dial
+        d = _m1_full_diag()
+        S, F, LW, alpha, rho_bar, N = d["S"], d["F"], d["LW"], d["alpha"], d["rho_bar"], d["N"]
+
+        def to_corr(cov):
+            s = np.sqrt(np.diag(cov))
+            c = cov / np.outer(s, s)
+            np.fill_diagonal(c, 1.0)
+            return c
+
+        eig_S = np.sort(np.linalg.eigvalsh(S))[::-1]
+        eig_LW = np.sort(np.linalg.eigvalsh(LW))[::-1]
+
+        fig = plt.figure(figsize=(14, 9))
+        gs_fig = gridspec.GridSpec(2, 3, figure=fig, hspace=0.45, wspace=0.35)
+
+        ax_eig = fig.add_subplot(gs_fig[0, :2])
+        k = np.arange(1, N + 1)
+        ax_eig.semilogy(k, eig_S,  "o-", color="#2c5282", lw=1.8, ms=5, label="Sample Cov")
+        ax_eig.semilogy(k, eig_LW, "s-", color="#c53030", lw=1.8, ms=5, label="LW Shrinkage")
+        ax_eig.annotate(
+            f"Condition S = {np.linalg.cond(S):.0f}\nCondition LW = {np.linalg.cond(LW):.0f}",
+            xy=(N * 0.6, eig_S[-1] * 3), fontsize=9,
+            bbox=dict(boxstyle="round,pad=0.4", fc="#fff9f0", ec="#c53030", alpha=0.9),
+        )
+        ax_eig.set_xlabel("Eigenvalue rank")
+        ax_eig.set_ylabel("Eigenvalue (log scale)")
+        ax_eig.set_title("Eigenvalue Spectrum: Sample vs Ledoit-Wolf", fontweight="bold")
+        ax_eig.legend(); ax_eig.grid(True, alpha=0.2)
+
+        ax_dial = fig.add_subplot(gs_fig[0, 2])
+        ax_dial.axis("off")
+        bar_x = np.linspace(0, 1, 300)
+        for x, c in zip(bar_x, plt.cm.RdYlBu_r(bar_x)):
+            ax_dial.barh(0.55, 1 / 300, left=x, height=0.12, color=c, linewidth=0)
+        ax_dial.annotate("", xy=(alpha, 0.35), xytext=(alpha, 0.53),
+                         arrowprops=dict(arrowstyle="->", color="black", lw=2.5))
+        ax_dial.text(alpha, 0.28, f"α* = {alpha:.3f}", ha="center", fontsize=13, fontweight="bold", color="#0f1f3d")
+        ax_dial.text(0.0, 0.73, "Pure Sample\n(α = 0)", ha="left", fontsize=9, color="#2c5282")
+        ax_dial.text(1.0, 0.73, "Pure Target\n(α = 1)", ha="right", fontsize=9, color="#c53030")
+        ax_dial.text(0.5, 0.88, "Shrinkage Intensity Dial", ha="center", fontsize=11, fontweight="bold", color="#0f1f3d")
+        ax_dial.set_xlim(-0.05, 1.05); ax_dial.set_ylim(0, 1.1)
+
+        for col_idx, (mat, title) in enumerate([
+            (to_corr(S),  "Sample Correlation"),
+            (to_corr(F),  f"Target F  (ρ̄ = {rho_bar:.3f})"),
+            (to_corr(LW), f"LW Shrinkage  (α = {alpha:.3f})"),
+        ]):
+            ax = fig.add_subplot(gs_fig[1, col_idx])
+            im = ax.imshow(mat, cmap="RdYlBu_r", vmin=-0.1, vmax=1.0, aspect="auto")
+            ax.set_title(title, fontweight="bold", fontsize=10)
+            ax.set_xticks([]); ax.set_yticks([])
+            plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+
+        plt.tight_layout()
+        st.pyplot(fig, clear_figure=True)
+        st.code(f"Eigenvalue ratio  S: {eig_S[0]/eig_S[-1]:.1f}   LW: {eig_LW[0]/eig_LW[-1]:.1f}", language="text")
+        return True
+
+    if cell_index == 5:
+        # Rolling diagnostics
+        dates, alphas, rho_bars, cond_s, cond_lw = _m1_rolling_diag()
+        fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
+        fig.suptitle("M1 — Rolling Diagnostics (252-day window)", fontsize=13, fontweight="bold", color="#0f1f3d")
+
+        axes[0].fill_between(dates, alphas, alpha=0.25, color="#c53030")
+        axes[0].plot(dates, alphas, color="#c53030", lw=1.6)
+        axes[0].set_ylabel("Shrinkage Intensity α*")
+        axes[0].set_title("Optimal Shrinkage Intensity", fontweight="bold")
+        axes[0].grid(True, alpha=0.2)
+
+        axes[1].fill_between(dates, rho_bars, alpha=0.25, color="#2c5282")
+        axes[1].plot(dates, rho_bars, color="#2c5282", lw=1.6)
+        axes[1].set_ylabel("Mean Pairwise Correlation ρ̄")
+        axes[1].set_title("Average Pairwise Correlation", fontweight="bold")
+        axes[1].grid(True, alpha=0.2)
+
+        axes[2].semilogy(dates, cond_s,  color="#2c5282", lw=1.6, label="Sample Cov")
+        axes[2].semilogy(dates, cond_lw, color="#c53030", lw=1.6, label="LW Shrinkage")
+        axes[2].set_ylabel("Condition Number (log)")
+        axes[2].set_title("Numerical Stability", fontweight="bold")
+        axes[2].legend(fontsize=9); axes[2].grid(True, alpha=0.2)
+
+        plt.tight_layout()
+        st.pyplot(fig, clear_figure=True)
+        st.code(
+            f"α* range: [{alphas.min():.3f}, {alphas.max():.3f}]   "
+            f"ρ̄ range: [{rho_bars.min():.3f}, {rho_bars.max():.3f}]",
+            language="text",
+        )
+        return True
+
+    if cell_index == 7:
+        # Backtest + drawdown + metrics
+        ret_df, pv_df = _rolling_backtest("Ledoit-Wolf Shrinkage")
+        _backtest_chart_and_table(ret_df, pv_df, _M1_LABELS, _M1_COLORS)
+        return True
+
+    return False
+
+
+def render_m2_live_output(cell_index: int) -> bool:
+    if cell_index == 9:
+        ret_df, pv_df = _rolling_backtest("RMT Eigenvalue Cleaning")
+        _backtest_chart_and_table(ret_df, pv_df, _M2_LABELS, _M2_COLORS)
+        return True
+    return False
+
+
 def render_preface_live_output(cell_index: int) -> bool:
     prices, returns, _ = load_data()
 
@@ -917,6 +1173,31 @@ def render_notebook_cells(module_key: str, show_code: bool) -> None:
                 st.caption("Code hidden. Enable `Show code cells` in the sidebar to display the full source.")
 
             outputs = cell.get("outputs", [])
+
+            # M1 and M2 live rendering (fires even when no saved outputs)
+            if module_key == "Ledoit-Wolf Shrinkage" and cell_index in (4, 5, 7):
+                st.markdown('<div class="output-header">Cell Output</div>', unsafe_allow_html=True)
+                if render_m1_live_output(cell_index):
+                    stream_lines = [
+                        clean_stream_text("".join(o.get("text", [])))
+                        for o in outputs if o.get("output_type") == "stream"
+                    ]
+                    stream_lines = [s for s in stream_lines if s]
+                    if stream_lines:
+                        st.code("\n".join(stream_lines), language="text")
+                    continue
+            if module_key == "RMT Eigenvalue Cleaning" and cell_index == 9:
+                st.markdown('<div class="output-header">Cell Output</div>', unsafe_allow_html=True)
+                if render_m2_live_output(cell_index):
+                    stream_lines = [
+                        clean_stream_text("".join(o.get("text", [])))
+                        for o in outputs if o.get("output_type") == "stream"
+                    ]
+                    stream_lines = [s for s in stream_lines if s]
+                    if stream_lines:
+                        st.code("\n".join(stream_lines), language="text")
+                    continue
+
             if outputs:
                 st.markdown('<div class="output-header">Cell Output</div>', unsafe_allow_html=True)
                 if module_key == "Portfolio Optimizer" and cell_index == 7:
