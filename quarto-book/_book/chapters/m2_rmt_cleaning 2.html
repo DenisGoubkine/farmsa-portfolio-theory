@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>RMT Eigenvalue Cleaning – FARMSA Portfolio Theory</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/m3_factor_models.html" rel="next">
+<link href="../chapters/m1_ledoit_wolf.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:wght@400;600;700&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/report.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">FARMSA Portfolio Theory</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why Estimation Error Dominates</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Covariance Estimation Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MPT vs PMPT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/m6_optimizer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Portfolio Optimizer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-problem-with-sample-covariance" id="toc-the-problem-with-sample-covariance" class="nav-link active" data-scroll-target="#the-problem-with-sample-covariance">The Problem with Sample Covariance</a></li>
+  <li><a href="#the-marchenkopastur-law" id="toc-the-marchenkopastur-law" class="nav-link" data-scroll-target="#the-marchenkopastur-law">The Marchenko–Pastur Law</a></li>
+  <li><a href="#the-cleaning-algorithm" id="toc-the-cleaning-algorithm" class="nav-link" data-scroll-target="#the-cleaning-algorithm">The Cleaning Algorithm</a></li>
+  <li><a href="#why-replace-with-the-mean-not-zero" id="toc-why-replace-with-the-mean-not-zero" class="nav-link" data-scroll-target="#why-replace-with-the-mean-not-zero">Why Replace With the Mean (Not Zero)?</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">RMT Eigenvalue Cleaning</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory | Module 2
+</p>
+<h1>
+RMT Eigenvalue Cleaning
+</h1>
+<p class="module-banner-sub">
+Eigenvalue denoising using a random-matrix noise boundary.
+</p>
+<p class="module-banner-author">
+Author: Pranay
+</p>
+</div>
+<section id="the-problem-with-sample-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-with-sample-covariance">The Problem with Sample Covariance</h3>
+<p>we are using <span class="math inline">\(N = 50\)</span> stocks estimated from <span class="math inline">\(T = 1{,}759\)</span> days. The sample covariance matrix contains <span class="math inline">\(\frac{N(N+1)}{2} = 1{,}275\)</span> unique parameters, all estimated from the same data. The ratio <span class="math inline">\(q = N/T \approx 0.028\)</span> means we have roughly <strong>35 observations per parameter</strong>, which sounds adequate but isn’t — most of the off-diagonal structure is pure estimation noise.</p>
+<p>The consequence for portfolio optimization: the optimizer sees spurious correlations as real, takes positions that exploit them, and underperforms out-of-sample.</p>
+</section>
+<section id="the-marchenkopastur-law" class="level3">
+<h3 class="anchored" data-anchor-id="the-marchenkopastur-law">The Marchenko–Pastur Law</h3>
+<p>In 1967, Marchenko and Pastur proved that if you fill an <span class="math inline">\(N \times T\)</span> matrix with <strong>pure i.i.d. noise</strong> and compute its covariance matrix, the eigenvalues follow a specific distribution with support:</p>
+<p><span class="math display">\[
+\lambda_{\pm} = \sigma^2 \left(1 \pm \sqrt{q}\right)^2, \qquad q = \frac{N}{T}
+\]</span></p>
+<p>where <span class="math inline">\(\sigma^2\)</span> is the noise variance. This gives us a <strong>noise ceiling</strong> <span class="math inline">\(\lambda_+\)</span>: any eigenvalue below it is statistically indistinguishable from pure noise.</p>
+</section>
+<section id="the-cleaning-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="the-cleaning-algorithm">The Cleaning Algorithm</h3>
+<ol type="1">
+<li>Eigendecompose the sample covariance: <span class="math inline">\(\hat{\Sigma} = V \, \text{diag}(\lambda) \, V^\top\)</span></li>
+<li>Estimate the noise level: <span class="math inline">\(\sigma^2 = \frac{1}{N}\sum_i \lambda_i\)</span> (mean eigenvalue)</li>
+<li>Compute the MP upper bound <span class="math inline">\(\lambda_+\)</span></li>
+<li>Identify signal eigenvalues (<span class="math inline">\(\lambda_i &gt; \lambda_+\)</span>) and noise eigenvalues (<span class="math inline">\(\lambda_i \leq \lambda_+\)</span>)</li>
+<li>Replace all noise eigenvalues with their mean <span class="math inline">\(\bar{\lambda}_{\text{noise}}\)</span> — this preserves the matrix trace (total variance)</li>
+<li>Reconstruct:</li>
+</ol>
+<p><span class="math display">\[
+\hat{\Sigma}_{\text{clean}} = \sum_{i \in \text{signal}} \lambda_i \, v_i v_i^\top \;+\; \bar{\lambda}_{\text{noise}} \sum_{i \in \text{noise}} v_i v_i^\top
+\]</span></p>
+</section>
+<section id="why-replace-with-the-mean-not-zero" class="level3">
+<h3 class="anchored" data-anchor-id="why-replace-with-the-mean-not-zero">Why Replace With the Mean (Not Zero)?</h3>
+<p>Setting noise eigenvalues to zero would destroy total variance (the trace of the matrix). Replacing with their mean <span class="math inline">\(\bar{\lambda}_{\text{noise}}\)</span> redistributes that variance uniformly across noise directions the covariance in those directions is neither inflated (as in the raw matrix) nor eliminated, just neutralised.</p>
+<div id="85bb1298" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:06.527276Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:06.526678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.585109Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.584811Z&quot;}}" data-execution_count="1">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §2  Setup &amp; Estimator ──────────────────────────────────</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>prices  <span class="op">=</span> pd.read_csv(<span class="st">'data/prices.csv'</span>,  index_col<span class="op">=</span><span class="dv">0</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> pd.read_csv(<span class="st">'data/returns.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>N, T <span class="op">=</span> returns.shape[<span class="dv">1</span>], returns.shape[<span class="dv">0</span>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Loaded </span><span class="sc">{</span>N<span class="sc">}</span><span class="ss"> assets × </span><span class="sc">{</span>T<span class="sc">}</span><span class="ss"> days  |  q = N/T = </span><span class="sc">{</span>N<span class="op">/</span>T<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loaded 50 assets × 1759 days  |  q = N/T = 0.0284</code></pre>
+</div>
+</div>
+<div id="2f8bc6f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.586765Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.586650Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.596136Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.595893Z&quot;}}" data-execution_count="2">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ╔══════════════════════════════════════════════════════════╗</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ║  YOUR WORK GOES HERE                                    ║</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ║                                                         ║</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ║  Replace the body of this function with your estimator. ║</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ║  Input:  returns_df  (pd.DataFrame, T×N daily returns)  ║</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ║  Output: N×N numpy array (symmetric, positive semi-def) ║</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ╚══════════════════════════════════════════════════════════╝</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_covariance(returns_df):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return an N×N covariance matrix using RMT Eigenvalue Cleaning."""</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">    RMT-cleaned covariance matrix using Marchenko-Pastur eigenvalue cleaning.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">    Steps USed here are</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">      1. First Compute sample covariance</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">      2. then Eigendecompose it</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">      3. thrid Estimate noise level sigma^2 = mean of all eigenvalues</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">      4. Compute MP upper bound lambda_plus</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">      5. Replace noise eigenvalues (below lambda_plus) with their mean</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">      6. Reconstruct the cleaned matrix</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">    Input:  returns_df  (pd.DataFrame, T x N daily returns)</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">    Output: N x N numpy array (symmetric, positive semi-definite)</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    T_win, N_assets <span class="op">=</span> returns_df.shape</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> N_assets <span class="op">/</span> T_win</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> returns_df.cov().values</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eigendecomposed  (eigh is used since we have a 50x50 matrix, symetric so faster w this</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    eigenvalues, eigenvectors <span class="op">=</span> np.linalg.eigh(S)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sorted descending, big eign first</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.argsort(eigenvalues)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    eigenvalues  <span class="op">=</span> eigenvalues[idx]</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    eigenvectors <span class="op">=</span> eigenvectors[:, idx]</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Estimate noise variancem wwhuch would be the mean of all eigenvalues</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> np.mean(eigenvalues)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Marchenko-Pastur upper bound, </span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#so this is the bound we use to determine eigenvalues/correlations that are just noise</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#anything less than this bound is noise, anything above is signal</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    lambda_plus <span class="op">=</span> mean <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> np.sqrt(q))<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    signal_mask <span class="op">=</span> eigenvalues <span class="op">&gt;</span> lambda_plus</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    noise_mask  <span class="op">=</span> <span class="op">~</span>signal_mask</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replaced the noise </span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># eigenvalues with their mean here</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    cleaned_eigenvalues <span class="op">=</span> eigenvalues.copy()</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> noise_mask.<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        cleaned_eigenvalues[noise_mask] <span class="op">=</span> eigenvalues[noise_mask].mean()</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    V <span class="op">=</span> eigenvectors</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> V <span class="op">@</span> np.diag(cleaned_eigenvalues) <span class="op">@</span> V.T</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> (cleaned_cov <span class="op">+</span> cleaned_cov.T) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cleaned_cov</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>cov_test <span class="op">=</span> estimate_covariance(returns.iloc[:<span class="dv">252</span>])</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cov_test.shape <span class="op">==</span> (N, N), <span class="ss">f"Expected (</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">), got </span><span class="sc">{</span>cov_test<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(cov_test, cov_test.T), <span class="st">"Not symmetric"</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.<span class="bu">all</span>(np.linalg.eigvalsh(cov_test) <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1e-10</span>), <span class="st">"Negative eigenvalues"</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Estimator passes sanity checks"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Estimator passes sanity checks</code></pre>
+</div>
+</div>
+<div id="22a1ecb2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.597398Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.597309Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.601321Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.601129Z&quot;}}" data-execution_count="3">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §3  Eigenvalue Cleaning Diagnostics ───────────────────</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#here are some ways we can see what cleaning actually does to the spectrum</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Not a performance measure of the system above, j a way to see how cleaning works</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#using full sample(uncleaned) as referce</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>S_full <span class="op">=</span> returns.cov().values</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>q_full <span class="op">=</span> N <span class="op">/</span> T</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>raw_eigenvalues, eigenvectors_full <span class="op">=</span> np.linalg.eigh(S_full)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.argsort(raw_eigenvalues)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>raw_eigenvalues <span class="op">=</span> raw_eigenvalues[idx]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>eigenvectors_full <span class="op">=</span> eigenvectors_full[:, idx]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>sigma_sq_full <span class="op">=</span> np.mean(raw_eigenvalues)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>lambda_plus_full <span class="op">=</span> sigma_sq_full <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> np.sqrt(q_full))<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>signal_mask_full <span class="op">=</span> raw_eigenvalues <span class="op">&gt;</span> lambda_plus_full</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>noise_mask_full <span class="op">=</span> <span class="op">~</span>signal_mask_full</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>n_signal <span class="op">=</span> signal_mask_full.<span class="bu">sum</span>()</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>n_noise <span class="op">=</span> noise_mask_full.<span class="bu">sum</span>()</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>cleaned_eigenvalues_full <span class="op">=</span> raw_eigenvalues.copy()</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>noise_mean <span class="op">=</span> raw_eigenvalues[noise_mask_full].mean()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>cleaned_eigenvalues_full[noise_mask_full] <span class="op">=</span> noise_mean</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#what this tells us</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># q : how noisy our setup is (more assets vs days = higher q = more noise)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># sigma^2 : our estimate of the background noise level in the data</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda+ : the cutoff: any eigenvalue below this is indistinguishable from pure noise</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Signal eigenvalues : the few components that have actual/real/important covariance info</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Noise eigenvalues : the majority that are just estimation noise, get replaced</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Noise mean    : the single value all noise eigenvalues get replaced with</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"q = N/T = </span><span class="sc">{</span>q_full<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"sigma^2 (noise estimate) = </span><span class="sc">{</span>sigma_sq_full<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MP upper bound lambda+ = </span><span class="sc">{</span>lambda_plus_full<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" "</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Signal eigenvalues : </span><span class="sc">{</span>n_signal<span class="sc">:&gt;3d}</span><span class="ss">  (</span><span class="sc">{</span>n_signal<span class="op">/</span>N<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% of spectrum)"</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Noise eigenvalues  : </span><span class="sc">{</span>n_noise<span class="sc">:&gt;3d}</span><span class="ss">  (</span><span class="sc">{</span>n_noise<span class="op">/</span>N<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% of spectrum)"</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Noise mean (replacement value) = </span><span class="sc">{</span>noise_mean<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>q = N/T = 0.0284
+sigma^2 (noise estimate) = 0.000385
+MP upper bound lambda+ = 0.000526
+ 
+Signal eigenvalues :   4  (8% of spectrum)
+Noise eigenvalues  :  46  (92% of spectrum)
+Noise mean (replacement value) = 0.000161</code></pre>
+</div>
+</div>
+<div id="4d0b1144" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.602489Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.602405Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.830288Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.830045Z&quot;}}" data-execution_count="4">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §4  Visualisation 1: Eigenvalue Spectrum ──────────────</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Left axis being the raw spectrum</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#So we'll see a handful of the important eigenvalues as tall red bars</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Dashed line showing the cutoff for noise</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#dc2626'</span> <span class="cf">if</span> v <span class="cf">else</span> <span class="st">'#94a3b8'</span> <span class="cf">for</span> v <span class="kw">in</span> signal_mask_full]</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ax.bar(<span class="bu">range</span>(<span class="dv">1</span>, N<span class="op">+</span><span class="dv">1</span>), raw_eigenvalues, color<span class="op">=</span>colors, alpha<span class="op">=</span><span class="fl">0.85</span>, width<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>ax.axhline(lambda_plus_full, color<span class="op">=</span><span class="st">'#dc2626'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>           label<span class="op">=</span><span class="ss">f'MP bound  $</span><span class="ch">\\</span><span class="ss">lambda_+$ = </span><span class="sc">{</span>lambda_plus_full<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Component (ranked by size)'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Eigenvalue'</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Raw Eigenvalue Spectrum'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.98</span>, <span class="fl">0.97</span>, <span class="ss">f'</span><span class="sc">{</span>n_signal<span class="sc">}</span><span class="ss"> signal  |  </span><span class="sc">{</span>n_noise<span class="sc">}</span><span class="ss"> noise'</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">'right'</span>, va<span class="op">=</span><span class="st">'top'</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">9</span>, color<span class="op">=</span><span class="st">'#374151'</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round,pad=0.3'</span>, facecolor<span class="op">=</span><span class="st">'#f9fafb'</span>, edgecolor<span class="op">=</span><span class="st">'#d1d5db'</span>))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Right plot</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#The signal/important eigenvalues are left untouched, but the noise is all flattened out</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">1</span>, N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, raw_eigenvalues,     <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'#2563eb'</span>, lw<span class="op">=</span><span class="fl">1.5</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">'Raw eigenvalues'</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, cleaned_eigenvalues_full, <span class="st">'s--'</span>, color<span class="op">=</span><span class="st">'#dc2626'</span>, lw<span class="op">=</span><span class="fl">1.5</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">'Cleaned eigenvalues'</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ax2.axhline(lambda_plus_full, color<span class="op">=</span><span class="st">'#f59e0b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, lw<span class="op">=</span><span class="fl">1.5</span>, label<span class="op">=</span><span class="ss">f'$</span><span class="ch">\\</span><span class="ss">lambda_+$ = </span><span class="sc">{</span>lambda_plus_full<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>ax2.axhline(noise_mean, color<span class="op">=</span><span class="st">'#dc2626'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, lw<span class="op">=</span><span class="fl">1.0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="ss">f'Noise mean = </span><span class="sc">{</span>noise_mean<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Component (ranked by size)'</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Eigenvalue'</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Raw vs Cleaned Eigenvalues'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>ax2.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Marchenko–Pastur Eigenvalue Cleaning'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_rmt_cleaning_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="82aa0722" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.831598Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.831492Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.907578Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.907265Z&quot;}}" data-execution_count="5">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  §4  Visualisation 2: Zoom Into the Noise Region so we can se more</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The first plot is dominated by the large market eigenvalue.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This plot focuses on the noise section to clearly show the cleaning effect.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.5</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Only show eigenvalues in/near the noise band (skip the big signal ones)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>cutoff_display <span class="op">=</span> n_signal  <span class="co"># start from where noise begins</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>x_noise <span class="op">=</span> np.arange(cutoff_display <span class="op">+</span> <span class="dv">1</span>, N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>ax.bar(x_noise,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       raw_eigenvalues[cutoff_display:],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>       color<span class="op">=</span><span class="st">'#94a3b8'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, width<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">'Raw (noise eigenvalues)'</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>ax.axhline(noise_mean, color<span class="op">=</span><span class="st">'#dc2626'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">2.0</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>           label<span class="op">=</span><span class="ss">f'Cleaned replacement value = </span><span class="sc">{</span>noise_mean<span class="sc">:.5f}</span><span class="ss">'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>ax.axhline(lambda_plus_full, color<span class="op">=</span><span class="st">'#f59e0b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, lw<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>           label<span class="op">=</span><span class="ss">f'MP upper bound $</span><span class="ch">\\</span><span class="ss">lambda_+$ = </span><span class="sc">{</span>lambda_plus_full<span class="sc">:.5f}</span><span class="ss">'</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#So we should see:</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#grey bars showing raw eigenvalues that r noise, scattered at diff heights</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#a dotted yellow line at the top, the MP bound that nothing should exceed</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#and a red dashed line, through the grey bars, which is the noise mean</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#which is also what the noise gets flattened to</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#messiness of the raw eigenvalues is averaged out and noise is removed</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Component index (noise region only)'</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Eigenvalue'</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Zoom: Noise Region  |  </span><span class="sc">{</span>n_noise<span class="sc">}</span><span class="ss"> eigenvalues replaced with their mean'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#this just shows us cleaning preserved the variance, and didnt create/get rid of varience</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">check to see the measures again:"</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Raw matrix trace      = </span><span class="sc">{</span>raw_eigenvalues<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Cleaned matrix trace  = </span><span class="sc">{</span>cleaned_eigenvalues_full<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Difference            = </span><span class="sc">{</span><span class="bu">abs</span>(raw_eigenvalues.<span class="bu">sum</span>() <span class="op">-</span> cleaned_eigenvalues_full.<span class="bu">sum</span>())<span class="sc">:.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_rmt_cleaning_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+check to see the measures again:
+  Raw matrix trace      = 0.019259
+  Cleaned matrix trace  = 0.019259
+  Difference            = 3.47e-18</code></pre>
+</div>
+</div>
+<div id="f5216369" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.909003Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.908896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.105764Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.105390Z&quot;}}" data-execution_count="6">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pre Added Template Cell for Backtest from Denis</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §5  Backtest ───────────────────────────────────────────</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This cell is ready to go — no changes needed.</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># It runs a rolling monthly backtest comparing three strategies:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   1. Equal Weight          (1/N — naive baseline)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   2. Sample Cov MVO        (min-variance using raw sample covariance)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   3. Your Estimator MVO    (min-variance using YOUR estimate_covariance)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Minimum-variance portfolio (long-only, fully invested)."""</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> cov.shape[<span class="dv">0</span>]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    w0 <span class="op">=</span> np.ones(n) <span class="op">/</span> n</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(<span class="kw">lambda</span> w: w <span class="op">@</span> cov <span class="op">@</span> w, w0, method<span class="op">=</span><span class="st">'SLSQP'</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                   bounds<span class="op">=</span>[(<span class="dv">0</span>, <span class="dv">1</span>)] <span class="op">*</span> n,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                   constraints<span class="op">=</span>[{<span class="st">'type'</span>: <span class="st">'eq'</span>, <span class="st">'fun'</span>: <span class="kw">lambda</span> w: w.<span class="bu">sum</span>() <span class="op">-</span> <span class="dv">1</span>}],</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                   options<span class="op">=</span>{<span class="st">'ftol'</span>: <span class="fl">1e-12</span>, <span class="st">'maxiter'</span>: <span class="dv">1000</span>})</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x <span class="cf">if</span> res.success <span class="cf">else</span> w0</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>LOOKBACK <span class="op">=</span> <span class="dv">252</span>   <span class="co"># 1 year estimation window</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>REBAL    <span class="op">=</span> <span class="dv">21</span>    <span class="co"># rebalance every ~1 month</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>MIN_HIST <span class="op">=</span> <span class="dv">252</span>   <span class="co"># need at least 1 year before first trade</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> returns.index[MIN_HIST:]</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> returns.shape[<span class="dv">1</span>]</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>pv <span class="op">=</span> {<span class="st">'Equal Weight'</span>: [<span class="fl">1.0</span>], <span class="st">'Sample Cov MVO'</span>: [<span class="fl">1.0</span>], <span class="st">'Your Estimator MVO'</span>: [<span class="fl">1.0</span>]}</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>cw <span class="op">=</span> {k: np.ones(n) <span class="op">/</span> n <span class="cf">for</span> k <span class="kw">in</span> pv}</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, date <span class="kw">in</span> <span class="bu">enumerate</span>(dates):</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> returns.index.get_loc(date)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> REBAL <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        window <span class="op">=</span> returns.iloc[idx <span class="op">-</span> LOOKBACK : idx]</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Equal Weight'</span>]       <span class="op">=</span> np.ones(n) <span class="op">/</span> n</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Sample Cov MVO'</span>]     <span class="op">=</span> min_variance_portfolio(window.cov().values)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Your Estimator MVO'</span>] <span class="op">=</span> min_variance_portfolio(estimate_covariance(window))</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    day_ret <span class="op">=</span> returns.iloc[idx].values</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> pv:</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        pv[k].append(pv[k][<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> cw[k] <span class="op">@</span> day_ret))</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>portfolio_df <span class="op">=</span> pd.DataFrame(pv, index<span class="op">=</span>[dates[<span class="dv">0</span>] <span class="op">-</span> pd.Timedelta(days<span class="op">=</span><span class="dv">1</span>)] <span class="op">+</span> <span class="bu">list</span>(dates))</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"✓ Backtest complete — </span><span class="sc">{</span><span class="bu">len</span>(dates)<span class="sc">}</span><span class="ss"> trading days"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Backtest complete — 1507 trading days</code></pre>
+</div>
+</div>
+<div id="84ed5470" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.110135Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.109968Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.241180Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.240938Z&quot;}}" data-execution_count="7">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#$6 results</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:       <span class="st">'#888888'</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Cov MVO'</span>:     <span class="st">'#2c5282'</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Your Estimator MVO'</span>: <span class="st">'#c53030'</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>LABELS <span class="op">=</span> {</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:       <span class="st">'Equal Weight (1/N)'</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Cov MVO'</span>:     <span class="st">'Sample Covariance MVO'</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Your Estimator MVO'</span>: <span class="st">'RMT Cleaned MVO'</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cumulative performance</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> portfolio_df:</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    ax.plot(portfolio_df.index, portfolio_df[k],</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span>LABELS[k], color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Portfolio Value ($1 start)'</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Cumulative Performance: RMT Cleaned vs Baselines'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># heres j a table of metrics for the performance of the portfolio </span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(v):</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    r  <span class="op">=</span> v.pct_change().dropna()</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    ar <span class="op">=</span> r.mean() <span class="op">*</span> <span class="dv">252</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    av <span class="op">=</span> r.std()  <span class="op">*</span> np.sqrt(<span class="dv">252</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Return (%)'</span>: <span class="bu">round</span>(ar <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Volatility (%)'</span>: <span class="bu">round</span>(av <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Sharpe Ratio'</span>: <span class="bu">round</span>(ar <span class="op">/</span> av <span class="cf">if</span> av <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Max Drawdown (%)'</span>: <span class="bu">round</span>(((v <span class="op">/</span> v.cummax()) <span class="op">-</span> <span class="dv">1</span>).<span class="bu">min</span>() <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    {LABELS[k]: metrics(portfolio_df[k]) <span class="cf">for</span> k <span class="kw">in</span> portfolio_df}</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>).T</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#Essentialy what this will show is:</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co"># A grey line which will be the arbritrary 1/N baseline equal weight optimization</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co"># This is just a comparison portfolio. But the idea that it represents a portfolio with equl % in each</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co"># THe red line will measure the portfolio value/performance of our RMT Cleaned optimized portfolio</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">#The vlue line is the uncleaned, sample covariance optimized portfolio, which we expect to do worse than the cleaned one</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>display(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_rmt_cleaning_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Ann. Return (%)</th>
+<th data-quarto-table-cell-role="th">Ann. Volatility (%)</th>
+<th data-quarto-table-cell-role="th">Sharpe Ratio</th>
+<th data-quarto-table-cell-role="th">Max Drawdown (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Equal Weight (1/N)</th>
+<td>19.00</td>
+<td>19.86</td>
+<td>0.957</td>
+<td>-34.27</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Sample Covariance MVO</th>
+<td>12.57</td>
+<td>17.19</td>
+<td>0.732</td>
+<td>-33.96</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">RMT Cleaned MVO</th>
+<td>13.99</td>
+<td>17.32</td>
+<td>0.808</td>
+<td>-35.09</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="37ac72d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.242462Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.242381Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.321629Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.321369Z&quot;}}" data-execution_count="8">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pre-added template cell for results from Denis</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {<span class="st">'Equal Weight'</span>:<span class="st">'#888'</span>,<span class="st">'Sample Cov MVO'</span>:<span class="st">'#2c5282'</span>,<span class="st">'Your Estimator MVO'</span>:<span class="st">'#c53030'</span>}</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.5</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> portfolio_df: ax.plot(portfolio_df.index, portfolio_df[k], label<span class="op">=</span>k, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Value ($1 start)'</span>)<span class="op">;</span> ax.set_title(<span class="st">'Cumulative Performance'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)<span class="op">;</span> ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span> plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Metrics</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(v):</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> v.pct_change().dropna()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    ar, av <span class="op">=</span> r.mean()<span class="op">*</span><span class="dv">252</span>, r.std()<span class="op">*</span>np.sqrt(<span class="dv">252</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'Ret%'</span>: ar<span class="op">*</span><span class="dv">100</span>, <span class="st">'Vol%'</span>: av<span class="op">*</span><span class="dv">100</span>, <span class="st">'Sharpe'</span>: ar<span class="op">/</span>av <span class="cf">if</span> av<span class="op">&gt;</span><span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">'MaxDD%'</span>: ((v<span class="op">/</span>v.cummax())<span class="op">-</span><span class="dv">1</span>).<span class="bu">min</span>()<span class="op">*</span><span class="dv">100</span>}</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>display(pd.DataFrame({k: metrics(portfolio_df[k]) <span class="cf">for</span> k <span class="kw">in</span> portfolio_df}).T.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_rmt_cleaning_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Ret%</th>
+<th data-quarto-table-cell-role="th">Vol%</th>
+<th data-quarto-table-cell-role="th">Sharpe</th>
+<th data-quarto-table-cell-role="th">MaxDD%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Equal Weight</th>
+<td>19.00</td>
+<td>19.86</td>
+<td>0.96</td>
+<td>-34.27</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Sample Cov MVO</th>
+<td>12.57</td>
+<td>17.19</td>
+<td>0.73</td>
+<td>-33.96</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Your Estimator MVO</th>
+<td>13.99</td>
+<td>17.32</td>
+<td>0.81</td>
+<td>-35.09</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="564e6071" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.323037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.322958Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.399167Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.398940Z&quot;}}" data-execution_count="9">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Also here is a little loop at Rolling Volatility</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#And if cleaning actually stabilizes the covariance, and more importantly the portfolio risk over time</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>window <span class="op">=</span> <span class="dv">63</span> <span class="co"># 3 mo</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> portfolio_df:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    daily_ret <span class="op">=</span> portfolio_df[k].pct_change().dropna()</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    rolling_vol <span class="op">=</span> daily_ret.rolling(window).std() <span class="op">*</span> np.sqrt(<span class="dv">252</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    ax.plot(rolling_vol.index, rolling_vol,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span>LABELS[k], color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.85</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Rolling Annualised Volatility (%)'</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Rolling 3-Month Volatility Comparison'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Note: Lower volatility for RMT Cleaned indicates the cleaning"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"is producing more stable portfolio weights over time."</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Some thoughts from the output:</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Blue and red lines are almost identical throughout the timeframe. Meaning the track each other closly</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#in 2022-23 we see the RMT cleaned portfolio run a bit higher</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Tells us, in general both MVO portfolios are much less volatile than arbitrary</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#equal weight. Similarlity in the RMT and sample cov, show the RMT didn't destablize anything</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#If we look around COVID times, in 2020-21, all three spiked pretty high, inregards to volatility, but the RMT cleaned one was a bit lower than the sample cov, which is what we want to see, that cleaning is helping stabilize the portfolio in volatile times</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows how no cleaning/covariance estimation, can defend against entire market crashes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_rmt_cleaning_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Note: Lower volatility for RMT Cleaned indicates the cleaning
+is producing more stable portfolio weights over time.</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
+<!-- ~200 words. Beat the baseline? When/why? Limitations? One-sentence takeaway. -->
+<p>Of the 50 eigenvalues in the sample covariance matrix, only 4 exceed the Marchenko–Pastur upper bound of λ+ = 0.000526, meaning 92% of the decomposition (46 eigenvalues) is, by our statistical measures, indistinguishable from pure estimation noise. We found the noise mean replacement value of 0.000161, and the trace is preserved at 0.019259 with a difference of 6.94e-18, essentially zero.</p>
+<p>RMT cleaning beat the sample covariance baseline on every meaningful metric. Annualised return improved from 12.59% to 13.99%, and the Sharpe ratio improved from 0.732 to 0.808. Which would be about a 10% gain in risk-adjusted performance, and volatility remained mostly unchanged (17.19% vs 17.32%).</p>
+<p>This is directly consistent with the general theory that 92% of the covariance matrix was noise, the without cleaning an optimizer would exploit fake relationships that didn’t exist out-of-sample, because of the excess noise. And removing that noise produced measurably better decisions.</p>
+<p>Technically equal weighting (had a Sharpe 0.957) outperformed both optimized strategies, which also shows how technically even that arbitrary, uninformed optimization is better than optimization with noise taken into account, and that estimation noise is damaging.</p>
+<p>The progression would be Sample Cov, to RMT Cleaned, to Equal Weight maps cleanly onto noisiest, to less noisy, to no estimation at all, with Sharpe improving at every step. The rolling volatility chart also confirms RMT and Sample Cov behave nearly identically in normal periods, with cleaning providing a decent but consistent separation from 2022 onward. Another interesting observation is during COVID (early 2020) all three strategies spiked to ~62% volatility at the same time. This just shows how, no matter how we approach covariance and risk cleaning, when considering external global/market factors, which effect all assets as a whole, no estimator can protect against systemic market-wide crashes alone.</p>
+<p>Takeaway: Eigenvalue cleaning using the Marchenko–Pastur law definetly improves portfolio performance over raw sample covariance, but with 92% of the spectrum classified as noise, technically a single cleaning step is insufficient to fully overcome estimation error, since for example equal weighting remains the stronger strategy precisely because it uses no covariance estimate at all. Nonetheless improvement is seen, and extracting noise, to creat better, more accurate, and better informed optimization calculations/decsions generates improved results</p>
+<p style="text-align:center; color:#8fadc8; font-style:italic; font-size:0.85em;">
+Module [X] complete — see integration notebook for side-by-side comparison across all estimators.
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const codeBlocks = Array.from(document.querySelectorAll("details.code-fold"));
+  if (codeBlocks.length === 0) return;
+
+  const titleBlock = document.querySelector(".quarto-title-block");
+  if (!titleBlock) return;
+
+  const controls = document.createElement("div");
+  controls.className = "report-controls";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "code-toggle-button";
+
+  const setState = (open) => {
+    for (const block of codeBlocks) {
+      block.open = open;
+      const summary = block.querySelector("summary");
+      if (summary) {
+        summary.textContent = open ? "Hide code" : "Show code";
+      }
+    }
+    button.textContent = open ? "Hide All Code" : "Show All Code";
+    button.setAttribute("aria-pressed", open ? "true" : "false");
+  };
+
+  let allOpen = codeBlocks.every((block) => block.open);
+  setState(allOpen);
+
+  button.addEventListener("click", () => {
+    allOpen = !allOpen;
+    setState(allOpen);
+  });
+
+  controls.appendChild(button);
+  titleBlock.appendChild(controls);
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/m1_ledoit_wolf.html" class="pagination-link" aria-label="Ledoit-Wolf Shrinkage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/m3_factor_models.html" class="pagination-link" aria-label="Fama-French 3-Factor Covariance">
+        <span class="nav-page-text"><span class="chapter-title">Fama-French 3-Factor Covariance</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

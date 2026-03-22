@@ -23,7 +23,7 @@ book:
   chapters:
     - index.qmd
     - chapters/summary.ipynb
-    - part: "Covariance Estimators"
+    - part: "Covariance Estimation Methods"
       chapters:
         - chapters/m1_ledoit_wolf.ipynb
         - chapters/m2_rmt_cleaning.ipynb

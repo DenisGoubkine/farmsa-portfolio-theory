@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Summary – FARMSA Portfolio Theory</title>
+<title>Why Estimation Error Dominates – FARMSA Portfolio Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -156,7 +156,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/summary.html"><span class="chapter-title">Summary</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/summary.html"><span class="chapter-title">Why Estimation Error Dominates</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -183,18 +183,18 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Summary</span></a>
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why Estimation Error Dominates</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Covariance Estimators</span></a>
+ <span class="menu-text">Covariance Estimation Methods</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -202,22 +202,22 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Shrinkage Estimation</span></a>
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Eigenvalue Cleaning</span></a>
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Factor Covariance</span></a>
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dynamic Covariance</span></a>
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -233,7 +233,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Downside Risk</span></a>
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MPT vs PMPT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,14 +253,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#comparative-overview-of-the-report" id="toc-comparative-overview-of-the-report" class="nav-link active" data-scroll-target="#comparative-overview-of-the-report">Comparative Overview of the Report</a></li>
-  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem">The Problem</a>
-  <ul class="collapse">
-  <li><a href="#what-this-chapter-covers" id="toc-what-this-chapter-covers" class="nav-link" data-scroll-target="#what-this-chapter-covers">What This Chapter Covers</a></li>
-  </ul></li>
-  <li><a href="#four-approaches-to-the-same-problem" id="toc-four-approaches-to-the-same-problem" class="nav-link" data-scroll-target="#four-approaches-to-the-same-problem">Four Approaches to the Same Problem</a></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
-  <li><a href="#related-chapters" id="toc-related-chapters" class="nav-link" data-scroll-target="#related-chapters">Related Chapters</a></li>
+  <li><a href="#how-the-methods-differ" id="toc-how-the-methods-differ" class="nav-link active" data-scroll-target="#how-the-methods-differ">How the Methods Differ</a></li>
+  <li><a href="#what-the-evidence-says" id="toc-what-the-evidence-says" class="nav-link" data-scroll-target="#what-the-evidence-says">What the Evidence Says</a></li>
   </ul>
 </nav>
     </div>
@@ -269,7 +263,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Summary</span></h1>
+<h1 class="title"><span class="chapter-title">Why Estimation Error Dominates</span></h1>
 </div>
 
 
@@ -286,23 +280,56 @@ window.Quarto = {
 </header>
 
 
-<section id="comparative-overview-of-the-report" class="level2">
-<h2 class="anchored" data-anchor-id="comparative-overview-of-the-report">Comparative Overview of the Report</h2>
-<p>This chapter introduces the problem, the testing design, and the main visual comparisons used throughout the report.</p>
-</section>
-<section id="the-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
-<p>Portfolio optimization depends on the covariance matrix. When that matrix is estimated poorly, the optimizer mistakes noise for structure and produces unstable allocations.</p>
-<p>This report compares four covariance estimators under a common backtest design on the same 50-stock U.S. large-cap universe. The objective is practical: determine how estimator choice changes portfolio behavior, risk, and out-of-sample performance.</p>
-<section id="what-this-chapter-covers" class="level3">
-<h3 class="anchored" data-anchor-id="what-this-chapter-covers">What This Chapter Covers</h3>
-<ul>
-<li>the baseline covariance-estimation problem</li>
-<li>the four estimators studied in the report</li>
-<li>the shared comparative backtest</li>
-<li>the visual results used to frame the later chapters</li>
-</ul>
-<div id="2f8bc6f9" class="cell" data-execution_count="1">
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory
+</p>
+<h1>
+The Estimation Problem
+</h1>
+<p class="module-banner-sub">
+How covariance estimation choices drive portfolio outcomes under one common test design.
+</p>
+<p class="module-banner-author">
+Dataset: 50 US large-cap stocks, daily data from 2018-01-02 to 2024-12-31
+</p>
+</div>
+<p>A mean-variance optimizer treats covariance estimates as ground truth. In practice, those estimates are noisy, and the optimizer amplifies that noise into concentrated positions.</p>
+<p>With 50 assets and a one-year lookback, the sample covariance matrix contains 1,275 unique parameters estimated from limited history. The result is unstable risk forecasts and brittle allocations out of sample.</p>
+<p>This chapter compares four estimators that address that issue from different angles:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Module</th>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Core idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="M1_ledoit_wolf.ipynb">M1</a></td>
+<td style="text-align: left;">Ledoit-Wolf Shrinkage</td>
+<td style="text-align: left;">Regularize the sample covariance toward a structured target using an analytically estimated shrinkage intensity</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="M2_rmt_cleaning.ipynb">M2</a></td>
+<td style="text-align: left;">RMT Eigenvalue Cleaning</td>
+<td style="text-align: left;">Separate statistically meaningful eigencomponents from noise and clean the noisy spectrum</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="M3_factor_models.ipynb">M3</a></td>
+<td style="text-align: left;">Fama-French 3-Factor Covariance</td>
+<td style="text-align: left;">Model co-movement through common factor exposures instead of pairwise sample estimates</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="M4_dcc_garch.ipynb">M4</a></td>
+<td style="text-align: left;">DCC-GARCH Dynamic Covariance</td>
+<td style="text-align: left;">Allow covariance to evolve through time with dynamic volatility and correlation updates</td>
+</tr>
+</tbody>
+</table>
+<p>All methods are run in the same backtest harness so differences reflect estimator behavior, not differences in setup.</p>
+<div id="2f8bc6f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:08.827525Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:08.827197Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:10.524445Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:10.524143Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt, warnings</span>
@@ -330,9 +357,9 @@ window.Quarto = {
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'LIN'</span>:<span class="st">'Mat'</span>,<span class="st">'APD'</span>:<span class="st">'Mat'</span>,<span class="st">'SHW'</span>:<span class="st">'Mat'</span>,<span class="st">'ECL'</span>:<span class="st">'Mat'</span>,</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>COLORS <span class="op">=</span> {</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>: <span class="st">'#94a3b8'</span>, <span class="st">'Sample Cov'</span>:  <span class="st">'#2c5282'</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ledoit-Wolf'</span>:  <span class="st">'#7c3aed'</span>, <span class="st">'RMT Cleaning'</span>:<span class="st">'#059669'</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Fama-French'</span>:  <span class="st">'#d97706'</span>, <span class="st">'DCC-GARCH'</span>:   <span class="st">'#c53030'</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight Benchmark'</span>: <span class="st">'#94a3b8'</span>, <span class="st">'Sample Covariance'</span>: <span class="st">'#2c5282'</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ledoit-Wolf Shrinkage'</span>: <span class="st">'#7c3aed'</span>, <span class="st">'RMT Eigenvalue Cleaning'</span>: <span class="st">'#059669'</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Fama-French 3-Factor Covariance'</span>: <span class="st">'#d97706'</span>, <span class="st">'DCC-GARCH Dynamic Covariance'</span>: <span class="st">'#c53030'</span>,</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Fama-French factors (needed for M3 estimator)</span></span>
@@ -359,7 +386,7 @@ window.Quarto = {
 All data loaded ✓</code></pre>
 </div>
 </div>
-<div id="8lsy5arohxl" class="cell" data-execution_count="2">
+<div id="8lsy5arohxl" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:10.527807Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:10.527421Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:10.742287Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:10.742028Z&quot;}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── The Baseline Problem: Sample Covariance Is Mostly Noise ─</span></span>
@@ -399,16 +426,15 @@ All data loaded ✓</code></pre>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="four-approaches-to-the-same-problem" class="level2">
-<h2 class="anchored" data-anchor-id="four-approaches-to-the-same-problem">Four Approaches to the Same Problem</h2>
-<p>Each estimator makes a different bet about where the noise is and how to remove it.</p>
-<p><strong>M1 — Ledoit-Wolf</strong> blends the sample covariance with a structured target <span class="math inline">\(F\)</span> at an analytically optimal weight <span class="math inline">\(\alpha^*\)</span>: <span class="math display">\[\hat{\Sigma}_{LW} = \alpha^* F + (1-\alpha^*) S\]</span> Conservative, assumption-light, and guaranteed to improve on the sample covariance asymptotically.</p>
-<p><strong>M2 — RMT Cleaning</strong> keeps eigenvalues that carry real signal and replaces the rest with their mean. Marchenko–Pastur theory tells us exactly where the noise floor sits: <span class="math display">\[\hat{\Sigma}_{RMT} = \sum_{i\,\in\,\text{signal}} \lambda_i v_i v_i^\top \;+\; \bar{\lambda}_{\text{noise}}\,I_{\text{noise}}\]</span></p>
-<p><strong>M3 — Fama-French</strong> says stocks only co-move through exposure to three economic factors — market, size, and value. This cuts 1,275 parameters down to 206: <span class="math display">\[\hat{\Sigma}_{FF3} = B\,\Sigma_f\,B^\top + D\]</span></p>
-<p><strong>M4 — DCC-GARCH</strong> breaks the assumption that <span class="math inline">\(\Sigma\)</span> is constant. Each stock gets its own GARCH volatility model, and correlations are updated daily: <span class="math display">\[H_t = D_t\,R_t\,D_t\]</span> The most expressive approach — and the most sensitive to estimation error.</p>
-<div id="6yak24trkp6" class="cell" data-execution_count="3">
+<section id="how-the-methods-differ" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-methods-differ">How the Methods Differ</h2>
+<p>Each method makes a different assumption about what should be trusted in the covariance matrix.</p>
+<p><strong>Ledoit-Wolf Shrinkage</strong> blends the sample covariance with a structured target matrix at an analytically chosen weight: <span class="math display">\[\hat{\Sigma}_{LW} = \alpha^* F + (1-\alpha^*) S\]</span></p>
+<p><strong>RMT Eigenvalue Cleaning</strong> keeps signal-dominant eigencomponents and shrinks the noisy tail of the spectrum: <span class="math display">\[\hat{\Sigma}_{RMT} = \sum_{i\in\text{signal}} \lambda_i v_i v_i^\top + \bar{\lambda}_{\text{noise}} I_{\text{noise}}\]</span></p>
+<p><strong>Fama-French 3-Factor Covariance</strong> imposes factor structure and estimates idiosyncratic residual risk separately: <span class="math display">\[\hat{\Sigma}_{FF3} = B\,\Sigma_f\,B^\top + D\]</span></p>
+<p><strong>DCC-GARCH Dynamic Covariance</strong> updates volatility and correlation through time: <span class="math display">\[H_t = D_t\,R_t\,D_t\]</span></p>
+<p>The tradeoff is straightforward: stronger structure reduces estimation noise, while higher flexibility can capture regime shifts but risks overfitting recent moves.</p>
+<div id="6yak24trkp6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:10.743870Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:10.743752Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:11.012676Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:11.012414Z&quot;}}" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── M1: Ledoit-Wolf Shrinkage ──────────────────────────────</span></span>
@@ -460,7 +486,7 @@ All data loaded ✓</code></pre>
 <pre><code>All four estimators defined ✓</code></pre>
 </div>
 </div>
-<div id="f5216369" class="cell" data-execution_count="4">
+<div id="f5216369" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:11.014139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:11.013965Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:59.366053Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:59.365402Z&quot;}}" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
@@ -474,7 +500,7 @@ All data loaded ✓</code></pre>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>LOOKBACK, REBAL, MIN_HIST <span class="op">=</span> <span class="dv">252</span>, <span class="dv">21</span>, <span class="dv">252</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> returns.index[MIN_HIST:]</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> returns.shape[<span class="dv">1</span>]</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>strategies <span class="op">=</span> [<span class="st">'Equal Weight'</span>,<span class="st">'Sample Cov'</span>,<span class="st">'Ledoit-Wolf'</span>,<span class="st">'RMT Cleaning'</span>,<span class="st">'Fama-French'</span>,<span class="st">'DCC-GARCH'</span>]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>strategies <span class="op">=</span> [<span class="st">'Equal Weight Benchmark'</span>,<span class="st">'Sample Covariance'</span>,<span class="st">'Ledoit-Wolf Shrinkage'</span>,<span class="st">'RMT Eigenvalue Cleaning'</span>,<span class="st">'Fama-French 3-Factor Covariance'</span>,<span class="st">'DCC-GARCH Dynamic Covariance'</span>]</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>pv  <span class="op">=</span> {k: [<span class="fl">1.0</span>] <span class="cf">for</span> k <span class="kw">in</span> strategies}</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>cw  <span class="op">=</span> {k: np.ones(n)<span class="op">/</span>n <span class="cf">for</span> k <span class="kw">in</span> strategies}</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>w_last <span class="op">=</span> {}</span>
@@ -484,12 +510,12 @@ All data loaded ✓</code></pre>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> returns.index.get_loc(date)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> REBAL <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        win <span class="op">=</span> returns.iloc[idx<span class="op">-</span>LOOKBACK:idx]</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Equal Weight'</span>]  <span class="op">=</span> np.ones(n)<span class="op">/</span>n</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Sample Cov'</span>]    <span class="op">=</span> min_variance_portfolio(win.cov().values)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Ledoit-Wolf'</span>]   <span class="op">=</span> min_variance_portfolio(estimate_lw(win))</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'RMT Cleaning'</span>]  <span class="op">=</span> min_variance_portfolio(estimate_rmt(win))</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Fama-French'</span>]   <span class="op">=</span> min_variance_portfolio(estimate_ff3(win))</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'DCC-GARCH'</span>]     <span class="op">=</span> min_variance_portfolio(estimate_dcc(win))</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Equal Weight Benchmark'</span>] <span class="op">=</span> np.ones(n)<span class="op">/</span>n</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Sample Covariance'</span>] <span class="op">=</span> min_variance_portfolio(win.cov().values)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Ledoit-Wolf Shrinkage'</span>] <span class="op">=</span> min_variance_portfolio(estimate_lw(win))</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'RMT Eigenvalue Cleaning'</span>] <span class="op">=</span> min_variance_portfolio(estimate_rmt(win))</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'Fama-French 3-Factor Covariance'</span>] <span class="op">=</span> min_variance_portfolio(estimate_ff3(win))</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">'DCC-GARCH Dynamic Covariance'</span>] <span class="op">=</span> min_variance_portfolio(estimate_dcc(win))</span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    day_ret <span class="op">=</span> returns.iloc[idx].values</span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> strategies:</span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        pv[k].append(pv[k][<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> cw[k] <span class="op">@</span> day_ret))</span>
@@ -502,16 +528,16 @@ All data loaded ✓</code></pre>
 <pre><code>Running backtest... ✓  (1507 days, 71 rebalances)</code></pre>
 </div>
 </div>
-<div id="37ac72d5" class="cell" data-execution_count="5">
+<div id="37ac72d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:59.375102Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:59.374958Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:59.559863Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:59.559595Z&quot;}}" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> strategies:</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    lw <span class="op">=</span> <span class="fl">1.5</span> <span class="cf">if</span> k <span class="op">!=</span> <span class="st">'Equal Weight'</span> <span class="cf">else</span> <span class="fl">1.0</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    al <span class="op">=</span> <span class="fl">1.0</span> <span class="cf">if</span> k <span class="op">!=</span> <span class="st">'Equal Weight'</span> <span class="cf">else</span> <span class="fl">0.5</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    lw <span class="op">=</span> <span class="fl">1.5</span> <span class="cf">if</span> k <span class="op">!=</span> <span class="st">'Equal Weight Benchmark'</span> <span class="cf">else</span> <span class="fl">1.0</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    al <span class="op">=</span> <span class="fl">1.0</span> <span class="cf">if</span> k <span class="op">!=</span> <span class="st">'Equal Weight Benchmark'</span> <span class="cf">else</span> <span class="fl">0.5</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(portfolio_df.index, portfolio_df[k], label<span class="op">=</span>k, color<span class="op">=</span>COLORS[k], lw<span class="op">=</span>lw, alpha<span class="op">=</span>al)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Portfolio value ($1 start)'</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Cumulative Performance — All Six Strategies'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Cumulative Performance Across Estimation Methods'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax.legend(ncol<span class="op">=</span><span class="dv">2</span>, fontsize<span class="op">=</span><span class="dv">9</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
@@ -536,114 +562,114 @@ All data loaded ✓</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <style type="text/css">
-#T_96491_row0_col1 {
+#T_5c847_row0_col1 {
   background-color: #ffffcc;
   color: #000000;
 }
-#T_96491_row0_col2 {
+#T_5c847_row0_col2 {
   background-color: #006837;
   color: #f1f1f1;
 }
-#T_96491_row1_col1 {
+#T_5c847_row1_col1 {
   background-color: #910026;
   color: #f1f1f1;
 }
-#T_96491_row1_col2 {
+#T_5c847_row1_col2 {
   background-color: #a50026;
   color: #f1f1f1;
 }
-#T_96491_row2_col1 {
+#T_5c847_row2_col1 {
   background-color: #820026;
   color: #f1f1f1;
 }
-#T_96491_row2_col2 {
+#T_5c847_row2_col2 {
   background-color: #d02927;
   color: #f1f1f1;
 }
-#T_96491_row3_col1 {
+#T_5c847_row3_col1 {
   background-color: #a80026;
   color: #f1f1f1;
 }
-#T_96491_row3_col2 {
+#T_5c847_row3_col2 {
   background-color: #fdc776;
   color: #000000;
 }
-#T_96491_row4_col1 {
+#T_5c847_row4_col1 {
   background-color: #d9131f;
   color: #f1f1f1;
 }
-#T_96491_row4_col2 {
+#T_5c847_row4_col2 {
   background-color: #f99355;
   color: #000000;
 }
-#T_96491_row5_col1 {
+#T_5c847_row5_col1 {
   background-color: #800026;
   color: #f1f1f1;
 }
-#T_96491_row5_col2 {
+#T_5c847_row5_col2 {
   background-color: #51b35e;
   color: #f1f1f1;
 }
 </style>
 
-<table id="T_96491" class="caption-top table table-sm table-striped small">
+<table id="T_5c847" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_96491_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Ann. Return (%)</th>
-<th id="T_96491_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Ann. Vol (%)</th>
-<th id="T_96491_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Sharpe</th>
-<th id="T_96491_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Max DD (%)</th>
+<th id="T_5c847_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Ann. Return (%)</th>
+<th id="T_5c847_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Ann. Vol (%)</th>
+<th id="T_5c847_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Sharpe</th>
+<th id="T_5c847_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Max DD (%)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_96491_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Equal Weight</th>
-<td id="T_96491_row0_col0" class="data row0 col0">19.000000</td>
-<td id="T_96491_row0_col1" class="data row0 col1">19.860000</td>
-<td id="T_96491_row0_col2" class="data row0 col2">0.960000</td>
-<td id="T_96491_row0_col3" class="data row0 col3">-34.270000</td>
+<th id="T_5c847_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Equal Weight Benchmark</th>
+<td id="T_5c847_row0_col0" class="data row0 col0">19.000000</td>
+<td id="T_5c847_row0_col1" class="data row0 col1">19.860000</td>
+<td id="T_5c847_row0_col2" class="data row0 col2">0.960000</td>
+<td id="T_5c847_row0_col3" class="data row0 col3">-34.270000</td>
 </tr>
 <tr class="even">
-<th id="T_96491_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Sample Cov</th>
-<td id="T_96491_row1_col0" class="data row1 col0">12.580000</td>
-<td id="T_96491_row1_col1" class="data row1 col1">17.190000</td>
-<td id="T_96491_row1_col2" class="data row1 col2">0.730000</td>
-<td id="T_96491_row1_col3" class="data row1 col3">-33.960000</td>
+<th id="T_5c847_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Sample Covariance</th>
+<td id="T_5c847_row1_col0" class="data row1 col0">12.570000</td>
+<td id="T_5c847_row1_col1" class="data row1 col1">17.190000</td>
+<td id="T_5c847_row1_col2" class="data row1 col2">0.730000</td>
+<td id="T_5c847_row1_col3" class="data row1 col3">-33.960000</td>
 </tr>
 <tr class="odd">
-<th id="T_96491_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Ledoit-Wolf</th>
-<td id="T_96491_row2_col0" class="data row2 col0">12.880000</td>
-<td id="T_96491_row2_col1" class="data row2 col1">17.110000</td>
-<td id="T_96491_row2_col2" class="data row2 col2">0.750000</td>
-<td id="T_96491_row2_col3" class="data row2 col3">-33.980000</td>
+<th id="T_5c847_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Ledoit-Wolf Shrinkage</th>
+<td id="T_5c847_row2_col0" class="data row2 col0">12.880000</td>
+<td id="T_5c847_row2_col1" class="data row2 col1">17.110000</td>
+<td id="T_5c847_row2_col2" class="data row2 col2">0.750000</td>
+<td id="T_5c847_row2_col3" class="data row2 col3">-33.970000</td>
 </tr>
 <tr class="even">
-<th id="T_96491_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">RMT Cleaning</th>
-<td id="T_96491_row3_col0" class="data row3 col0">13.990000</td>
-<td id="T_96491_row3_col1" class="data row3 col1">17.320000</td>
-<td id="T_96491_row3_col2" class="data row3 col2">0.810000</td>
-<td id="T_96491_row3_col3" class="data row3 col3">-35.090000</td>
+<th id="T_5c847_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">RMT Eigenvalue Cleaning</th>
+<td id="T_5c847_row3_col0" class="data row3 col0">13.990000</td>
+<td id="T_5c847_row3_col1" class="data row3 col1">17.320000</td>
+<td id="T_5c847_row3_col2" class="data row3 col2">0.810000</td>
+<td id="T_5c847_row3_col3" class="data row3 col3">-35.080000</td>
 </tr>
 <tr class="odd">
-<th id="T_96491_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Fama-French</th>
-<td id="T_96491_row4_col0" class="data row4 col0">14.020000</td>
-<td id="T_96491_row4_col1" class="data row4 col1">17.690000</td>
-<td id="T_96491_row4_col2" class="data row4 col2">0.790000</td>
-<td id="T_96491_row4_col3" class="data row4 col3">-34.420000</td>
+<th id="T_5c847_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Fama-French 3-Factor Covariance</th>
+<td id="T_5c847_row4_col0" class="data row4 col0">14.020000</td>
+<td id="T_5c847_row4_col1" class="data row4 col1">17.690000</td>
+<td id="T_5c847_row4_col2" class="data row4 col2">0.790000</td>
+<td id="T_5c847_row4_col3" class="data row4 col3">-34.420000</td>
 </tr>
 <tr class="even">
-<th id="T_96491_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">DCC-GARCH</th>
-<td id="T_96491_row5_col0" class="data row5 col0">15.690000</td>
-<td id="T_96491_row5_col1" class="data row5 col1">17.090000</td>
-<td id="T_96491_row5_col2" class="data row5 col2">0.920000</td>
-<td id="T_96491_row5_col3" class="data row5 col3">-27.510000</td>
+<th id="T_5c847_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">DCC-GARCH Dynamic Covariance</th>
+<td id="T_5c847_row5_col0" class="data row5 col0">15.690000</td>
+<td id="T_5c847_row5_col1" class="data row5 col1">17.090000</td>
+<td id="T_5c847_row5_col2" class="data row5 col2">0.920000</td>
+<td id="T_5c847_row5_col3" class="data row5 col3">-27.480000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="5vt353rk1zb" class="cell" data-execution_count="6">
+<div id="5vt353rk1zb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:59.561393Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:59.561264Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:59.724976Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:59.724646Z&quot;}}" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Risk Over Time ─────────────────────────────────────────</span></span>
@@ -680,7 +706,7 @@ All data loaded ✓</code></pre>
 </div>
 </div>
 </div>
-<div id="vmhp8p2p94b" class="cell">
+<div id="vmhp8p2p94b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:59.726915Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:59.726819Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:08:59.818429Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:08:59.818164Z&quot;}}" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Portfolio Concentration at Last Rebalance ──────────────</span></span>
@@ -717,25 +743,68 @@ All data loaded ✓</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HHI (1/N baseline = 0.0200):
+  Equal Weight Benchmark  0.0200  (50/50 positions &gt; 1%)
+  Sample Covariance  0.0728  (23/50 positions &gt; 1%)
+  Ledoit-Wolf Shrinkage  0.0490  (26/50 positions &gt; 1%)
+  RMT Eigenvalue Cleaning  0.0494  (24/50 positions &gt; 1%)
+  Fama-French 3-Factor Covariance  0.0633  (21/50 positions &gt; 1%)
+  DCC-GARCH Dynamic Covariance  0.0902  (17/50 positions &gt; 1%)</code></pre>
+</div>
+</div>
+<div id="39292bfb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:08:59.819826Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:08:59.819724Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:09:00.003828Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:09:00.003573Z&quot;}}" data-execution_count="8">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Additional Diagnostics</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ret_df <span class="op">=</span> portfolio_df.pct_change().dropna()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>focus <span class="op">=</span> [</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Covariance'</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ledoit-Wolf Shrinkage'</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RMT Eigenvalue Cleaning'</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Fama-French 3-Factor Covariance'</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'DCC-GARCH Dynamic Covariance'</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>rolling_sharpe <span class="op">=</span> (ret_df[focus].rolling(<span class="dv">126</span>).mean() <span class="op">*</span> <span class="dv">252</span>) <span class="op">/</span> (ret_df[focus].rolling(<span class="dv">126</span>).std() <span class="op">*</span> np.sqrt(<span class="dv">252</span>))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>annual_returns <span class="op">=</span> ((<span class="dv">1</span> <span class="op">+</span> ret_df[focus]).groupby(ret_df.index.year).prod() <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="fl">5.2</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> focus:</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(rolling_sharpe.index, rolling_sharpe[k], color<span class="op">=</span>COLORS[k], lw<span class="op">=</span><span class="fl">1.4</span>, label<span class="op">=</span>k)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'#475569'</span>, ls<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Rolling 6-Month Sharpe Ratio'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Sharpe Ratio'</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">7</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>sns.heatmap(annual_returns.T, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.1f'</span>, cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, center<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>            cbar_kws<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'Annual return (%)'</span>}, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Calendar-Year Returns by Method'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">''</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="summary_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><strong>All four estimators reduce portfolio risk relative to the raw sample covariance.</strong> The optimizer can’t exploit noise that isn’t there — constraining the parameter space produces more stable portfolios. The difference between methods is usually smaller than the gap between any of them and the sample covariance baseline.</p>
-<p><strong>Shrinkage (LW) and RMT are the most reliable defaults.</strong> They make minimal assumptions — just that the sample covariance has noise — and tend to work robustly across market regimes. If you don’t have strong structural views about the data, start here.</p>
-<p><strong>Factor models (FF3) work best when you have economic conviction.</strong> The Fama-French factors explain co-movement well for large-cap US stocks, and the reduced parameter count (206 vs 1,275) forces more diversified portfolios. The risk: any co-movement that doesn’t flow through the three factors gets ignored.</p>
-<p><strong>Time-varying covariance (DCC-GARCH) captures what static models miss.</strong> Correlations spike during crises — March 2020 being the clearest example in this dataset. Models that adapt in real time can reduce drawdowns. The cost is more parameters and a risk of over-reacting to recent history in calm periods.</p>
-<p>The right estimator depends on what kind of estimation error you’re willing to accept. For the full derivation and analysis of each approach, see the individual module notebooks.</p>
-</section>
-<section id="related-chapters" class="level2">
-<h2 class="anchored" data-anchor-id="related-chapters">Related Chapters</h2>
-<ul>
-<li><a href="../chapters/m1_ledoit_wolf.html">Shrinkage Estimation</a></li>
-<li><a href="../chapters/m2_rmt_cleaning.html">Eigenvalue Cleaning</a></li>
-<li><a href="../chapters/m3_factor_models.html">Factor Covariance</a></li>
-<li><a href="../chapters/m4_dcc_garch.html">Dynamic Covariance</a></li>
-<li><a href="../chapters/m6_optimizer.html">Portfolio Optimizer</a></li>
-</ul>
+<section id="what-the-evidence-says" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-evidence-says">What the Evidence Says</h2>
+<p><strong>All regularized estimators improve risk control versus raw sample covariance.</strong> That result is consistent across cumulative performance, rolling volatility, drawdowns, and concentration diagnostics.</p>
+<p><strong>Ledoit-Wolf and RMT are the most robust defaults in this dataset.</strong> They reduce variance from estimation noise without imposing strong economic structure.</p>
+<p><strong>Fama-French structure adds interpretability and diversification discipline.</strong> It performs best when factor assumptions are aligned with the assets under study.</p>
+<p><strong>DCC-GARCH adds regime sensitivity.</strong> It reacts faster during stress periods, but that flexibility requires tighter monitoring of model stability.</p>
+<p>Method choice should match the dominant risk in your use case: static estimation noise, structural misspecification, or time-varying regime shifts.</p>
+<p>Related modules: <a href="M1_ledoit_wolf.ipynb">Ledoit-Wolf</a> | <a href="M2_rmt_cleaning.ipynb">RMT Cleaning</a> | <a href="M3_factor_models.ipynb">Fama-French</a> | <a href="M4_dcc_garch.ipynb">DCC-GARCH</a></p>
 
 
 </section>
@@ -1182,13 +1251,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Overview">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Overview</span></span>
+      <a href="../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Home</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/m1_ledoit_wolf.html" class="pagination-link" aria-label="Shrinkage Estimation">
-        <span class="nav-page-text"><span class="chapter-title">Shrinkage Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/m1_ledoit_wolf.html" class="pagination-link" aria-label="Ledoit-Wolf Shrinkage">
+        <span class="nav-page-text"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

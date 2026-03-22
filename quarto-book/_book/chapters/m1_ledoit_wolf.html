@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Shrinkage Estimation – FARMSA Portfolio Theory</title>
+<title>Ledoit-Wolf Shrinkage – FARMSA Portfolio Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -107,39 +107,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:wght@400;600;700&amp;display=swap" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/report.css">
 </head>
@@ -153,7 +127,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimators</a></li><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html"><span class="chapter-title">Shrinkage Estimation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,18 +154,18 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why Estimation Error Dominates</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Covariance Estimators</span></a>
+ <span class="menu-text">Covariance Estimation Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -199,22 +173,22 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Shrinkage Estimation</span></a>
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Eigenvalue Cleaning</span></a>
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Factor Covariance</span></a>
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dynamic Covariance</span></a>
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -230,7 +204,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Downside Risk</span></a>
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MPT vs PMPT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -250,15 +224,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ledoit-wolf-covariance" id="toc-ledoit-wolf-covariance" class="nav-link active" data-scroll-target="#ledoit-wolf-covariance">Ledoit-Wolf Covariance</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">§1 Motivation</a>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link active" data-scroll-target="#interpretation">Interpretation</a>
   <ul class="collapse">
-  <li><a href="#optimal-shrinkage-intensity" id="toc-optimal-shrinkage-intensity" class="nav-link" data-scroll-target="#optimal-shrinkage-intensity">Optimal shrinkage intensity</a></li>
-  </ul></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">§7 Key Takeaways</a>
-  <ul class="collapse">
-  <li><a href="#what-the-visuals-show" id="toc-what-the-visuals-show" class="nav-link" data-scroll-target="#what-the-visuals-show">What the visuals show</a></li>
-  <li><a href="#why-is-the-return-uplift-small" id="toc-why-is-the-return-uplift-small" class="nav-link" data-scroll-target="#why-is-the-return-uplift-small">Why is the return uplift small?</a></li>
+  <li><a href="#main-takeaway" id="toc-main-takeaway" class="nav-link" data-scroll-target="#main-takeaway">Main takeaway</a></li>
+  <li><a href="#what-improves" id="toc-what-improves" class="nav-link" data-scroll-target="#what-improves">What improves</a></li>
+  <li><a href="#how-to-compare-it-with-other-modules" id="toc-how-to-compare-it-with-other-modules" class="nav-link" data-scroll-target="#how-to-compare-it-with-other-modules">How to compare it with other modules</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -266,9 +236,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimators</a></li><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html"><span class="chapter-title">Shrinkage Estimation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Shrinkage Estimation</span></h1>
+<h1 class="title"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></h1>
 </div>
 
 
@@ -285,71 +255,29 @@ window.Quarto = {
 </header>
 
 
-<section id="ledoit-wolf-covariance" class="level2">
-<h2 class="anchored" data-anchor-id="ledoit-wolf-covariance">Ledoit-Wolf Covariance</h2>
-<p>A regularized covariance estimator that shrinks the sample matrix toward a structured target.</p>
-</section>
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">§1 Motivation</h2>
-<p>The <strong>sample covariance matrix</strong> <span class="math inline">\(S\)</span> is unbiased but noisy.<br>
-With <span class="math inline">\(N=50\)</span> assets and <span class="math inline">\(T=1{,}759\)</span> days the ratio <span class="math inline">\(T/N \approx 35\)</span>, which sounds comfortable — but <span class="math inline">\(S\)</span> still has a condition number near <strong>270</strong>, meaning its smallest eigenvalues are severely underestimated.<br>
-A minimum-variance optimizer treats those tiny eigenvalues as genuine low-risk directions and bets heavily on them, producing concentrated, unstable portfolios.</p>
-<p><strong>Shrinkage</strong> blends <span class="math inline">\(S\)</span> with a structured target <span class="math inline">\(F\)</span> (the constant-correlation matrix):</p>
-<p><span class="math display">\[\hat{\Sigma}_{LW} = \alpha\, F + (1-\alpha)\, S\]</span></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(\alpha\)</span></th>
-<th>Effect</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>trust the data entirely (pure sample)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\alpha^*\approx 0.12\)</span></td>
-<td>Ledoit-Wolf optimal blend</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>trust the structure entirely (all correlations equal <span class="math inline">\(\bar\rho\)</span>)</td>
-</tr>
-</tbody>
-</table>
-<section id="optimal-shrinkage-intensity" class="level3">
-<h3 class="anchored" data-anchor-id="optimal-shrinkage-intensity">Optimal shrinkage intensity</h3>
-<p>Ledoit &amp; Wolf (2004) minimise <span class="math inline">\(\mathbb{E}\bigl[\|\hat{\Sigma}_{LW}-\Sigma\|_F^2\bigr]\)</span> analytically:</p>
-<p><span class="math display">\[\alpha^* = \frac{\pi - \rho}{T\,\gamma}\]</span></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Symbol</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\gamma = \|F-S\|_F^2\)</span></td>
-<td>distance between target and sample matrix</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\pi\)</span></td>
-<td>total estimation noise in <span class="math inline">\(S\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\rho\)</span></td>
-<td>bias correction (target is estimated from the same data)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(T\)</span></td>
-<td>number of observations</td>
-</tr>
-</tbody>
-</table>
-<p>More noise → larger <span class="math inline">\(\alpha\)</span> (shrink harder). More data → smaller <span class="math inline">\(\alpha\)</span> (trust the sample more). Larger gap between <span class="math inline">\(F\)</span> and <span class="math inline">\(S\)</span> → smaller <span class="math inline">\(\alpha\)</span> (hard to improve by shrinking toward a distant target).</p>
-<div id="2f8bc6f9" class="cell">
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory | Module 1
+</p>
+<h1>
+Ledoit-Wolf Shrinkage
+</h1>
+<p class="module-banner-sub">
+Constant-correlation shrinkage estimator for stable covariance inputs.
+</p>
+<p class="module-banner-author">
+Author: Tanya
+</p>
+</div>
+<p>Sample covariance is noisy, and portfolio optimizers amplify that noise into unstable positions.</p>
+<p>Ledoit-Wolf solves this by blending two ingredients:</p>
+<ul>
+<li>the raw sample covariance (high detail, high noise)</li>
+<li>a smoother structured baseline (lower detail, lower noise)</li>
+</ul>
+<p>The blend weight is estimated from the data itself, so the method adapts automatically instead of relying on manual tuning.</p>
+<p>In this module, focus on one practical question: <strong>does this produce a more stable portfolio than sample-covariance MVO?</strong></p>
+<div id="2f8bc6f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:18:31.816628Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:18:31.816033Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:18:40.570339Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:18:40.569106Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §2  Setup &amp; Estimator ──────────────────────────────────</span></span>
@@ -439,307 +367,341 @@ A minimum-variance optimizer treats those tiny eigenvalues as genuine low-risk d
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full-sample  α* = </span><span class="sc">{</span>alpha_full<span class="sc">:.4f}</span><span class="ss">   ρ̄ = </span><span class="sc">{</span>rho_bar_full<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Condition number — Sample: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(S_full)<span class="sc">:.1f}</span><span class="ss">   LW: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(lw_full)<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loaded 50 assets × 1759 days  (T/N = 35.2)
+✓ Estimator passes sanity checks
+Full-sample  α* = 0.1164   ρ̄ = 0.4032
+Condition number — Sample: 270.2   LW: 198.8</code></pre>
 </div>
-<div id="7aassea9m3l" class="cell">
+</div>
+<div id="7aassea9m3l" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:18:40.575268Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:18:40.574815Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:18:42.122287Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:18:42.121649Z&quot;}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §3  Visual 1 — Eigenvalue Spectrum &amp; Correlation Heatmaps ──────────────</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>gs  <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">3</span>, figure<span class="op">=</span>fig, hspace<span class="op">=</span><span class="fl">0.42</span>, wspace<span class="op">=</span><span class="fl">0.35</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Helpers ──</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_corr(cov):</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    std <span class="op">=</span> np.sqrt(np.diag(cov))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    c   <span class="op">=</span> cov <span class="op">/</span> np.outer(std, std)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(c, <span class="fl">1.0</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> c</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>S_corr  <span class="op">=</span> to_corr(S_full)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>F_corr  <span class="op">=</span> to_corr(F_full)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>LW_corr <span class="op">=</span> to_corr(lw_full)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>eig_S  <span class="op">=</span> np.sort(np.linalg.eigvalsh(S_full))[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>eig_LW <span class="op">=</span> np.sort(np.linalg.eigvalsh(lw_full))[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Top row: eigenvalue spectrum (log scale) ──────────────────────────────</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ax_eig <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, :<span class="dv">2</span>])</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">1</span>, N<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>ax_eig.semilogy(k, eig_S,  <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.8</span>, ms<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">'Sample Cov'</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax_eig.semilogy(k, eig_LW, <span class="st">'s-'</span>, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.8</span>, ms<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">'LW Shrinkage'</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax_eig.axvspan(<span class="fl">0.5</span>, N<span class="op">+</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.04</span>, color<span class="op">=</span><span class="st">'#c53030'</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax_eig.set_xlabel(<span class="st">'Eigenvalue rank'</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax_eig.set_ylabel(<span class="st">'Eigenvalue (log scale)'</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax_eig.set_title(<span class="st">'Eigenvalue Spectrum: Sample vs Ledoit-Wolf'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>ax_eig.legend()</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ax_eig.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate the spread compression</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>ax_eig.annotate(</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Condition S = </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(S_full)<span class="sc">:.0f}</span><span class="ch">\n</span><span class="ss">Condition LW = </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(lw_full)<span class="sc">:.0f}</span><span class="ss">"</span>,</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    xy<span class="op">=</span>(N<span class="op">*</span><span class="fl">0.65</span>, eig_S[<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">3</span>), fontsize<span class="op">=</span><span class="fl">9.5</span>,</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round,pad=0.4'</span>, fc<span class="op">=</span><span class="st">'#fff9f0'</span>, ec<span class="op">=</span><span class="st">'#c53030'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Top right: α dial ─────────────────────────────────────────────────────</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>ax_dial <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">2</span>])</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>ax_dial.axis(<span class="st">'off'</span>)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw shrinkage dial as a horizontal gradient bar</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>bar_x  <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">300</span>)</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> plt.cm.RdYlBu_r(bar_x)</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (x, c) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(bar_x, colors)):</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    ax_dial.barh(<span class="fl">0.55</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">300</span>, left<span class="op">=</span>x, height<span class="op">=</span><span class="fl">0.12</span>, color<span class="op">=</span>c, linewidth<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>ax_dial.annotate(<span class="st">''</span>, xy<span class="op">=</span>(alpha_full, <span class="fl">0.35</span>), xytext<span class="op">=</span>(alpha_full, <span class="fl">0.53</span>),</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>                 arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">'-&gt;'</span>, color<span class="op">=</span><span class="st">'black'</span>, lw<span class="op">=</span><span class="fl">2.5</span>))</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>ax_dial.text(alpha_full, <span class="fl">0.28</span>, <span class="ss">f'α* = </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>,</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>ax_dial.text(<span class="fl">0.0</span>,  <span class="fl">0.73</span>, <span class="st">'Pure Sample</span><span class="ch">\n</span><span class="st">(α = 0)'</span>, ha<span class="op">=</span><span class="st">'left'</span>,   fontsize<span class="op">=</span><span class="dv">9</span>,  color<span class="op">=</span><span class="st">'#2c5282'</span>)</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>ax_dial.text(<span class="fl">1.0</span>,  <span class="fl">0.73</span>, <span class="st">'Pure Target</span><span class="ch">\n</span><span class="st">(α = 1)'</span>, ha<span class="op">=</span><span class="st">'right'</span>,  fontsize<span class="op">=</span><span class="dv">9</span>,  color<span class="op">=</span><span class="st">'#c53030'</span>)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>ax_dial.text(<span class="fl">0.5</span>,  <span class="fl">0.88</span>, <span class="st">'Shrinkage Intensity Dial'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">11</span>,</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>             fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>ax_dial.set_xlim(<span class="op">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>)</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>ax_dial.set_ylim(<span class="dv">0</span>, <span class="fl">1.1</span>)</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Bottom row: correlation heatmaps ─────────────────────────────────────</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>vmin, vmax <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.0</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> <span class="st">'RdYlBu_r'</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col_idx, (mat, title) <span class="kw">in</span> <span class="bu">enumerate</span>([</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    (S_corr,  <span class="st">'Sample Correlation'</span>),</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    (F_corr,  <span class="ss">f'Target F  (ρ̄ = </span><span class="sc">{</span>rho_bar_full<span class="sc">:.3f}</span><span class="ss">)'</span>),</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    (LW_corr, <span class="ss">f'LW Shrinkage  (α = </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ss">)'</span>),</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>]):</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> fig.add_subplot(gs[<span class="dv">1</span>, col_idx])</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(mat, cmap<span class="op">=</span>cmap, vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax, aspect<span class="op">=</span><span class="st">'auto'</span>)</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(im, ax<span class="op">=</span>ax, fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'M1 — Ledoit-Wolf Shrinkage: Eigenvalues &amp; Correlation Structure'</span>,</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_eigenvalues_heatmaps.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Eigenvalue ratio (largest/smallest)  S: </span><span class="sc">{</span>eig_S[<span class="dv">0</span>]<span class="op">/</span>eig_S[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.1f}</span><span class="ss">   LW: </span><span class="sc">{</span>eig_LW[<span class="dv">0</span>]<span class="op">/</span>eig_LW[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div id="5xwov6tt68i" class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §4  Visual 2 — Rolling α* and ρ̄ over Time ──────────────────────────────</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how the optimal shrinkage intensity responds to market conditions.</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ROLL <span class="op">=</span> <span class="dv">252</span>   <span class="co"># 1-year rolling window</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dates, alphas, rho_bars, cond_S, cond_LW <span class="op">=</span> [], [], [], [], []</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>step <span class="op">=</span> <span class="dv">5</span>  <span class="co"># compute every 5 days to keep runtime short</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ROLL, T, step):</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    window <span class="op">=</span> returns.iloc[i<span class="op">-</span>ROLL:i]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    _, a, rb, Sw, _ <span class="op">=</span> estimate_covariance(window, return_diagnostics<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    lw <span class="op">=</span> estimate_covariance(window)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    dates.append(returns.index[i])</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    alphas.append(a)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    rho_bars.append(rb)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    cond_S.append(np.linalg.cond(Sw))</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    cond_LW.append(np.linalg.cond(lw))</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>dates    <span class="op">=</span> pd.DatetimeIndex(dates)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>alphas   <span class="op">=</span> np.array(alphas)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>rho_bars <span class="op">=</span> np.array(rho_bars)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>cond_S   <span class="op">=</span> np.array(cond_S)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>cond_LW  <span class="op">=</span> np.array(cond_LW)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">9</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'M1 — Rolling Diagnostics (252-day window, step=5 days)'</span>,</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §3  Visual 1 — Sample vs Ledoit-Wolf (Simplified) ───────────────────</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="fl">8.5</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>gs  <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">2</span>, figure<span class="op">=</span>fig, hspace<span class="op">=</span><span class="fl">0.38</span>, wspace<span class="op">=</span><span class="fl">0.28</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_corr(cov):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    std <span class="op">=</span> np.sqrt(np.diag(cov))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    c   <span class="op">=</span> cov <span class="op">/</span> np.outer(std, std)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(c, <span class="fl">1.0</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> c</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>S_corr  <span class="op">=</span> to_corr(S_full)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>LW_corr <span class="op">=</span> to_corr(lw_full)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>eig_S   <span class="op">=</span> np.sort(np.linalg.eigvalsh(S_full))[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>eig_LW  <span class="op">=</span> np.sort(np.linalg.eigvalsh(lw_full))[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: eigenvalue spectrum</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>ax_eig <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">1</span>, N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>ax_eig.semilogy(k, eig_S,  <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.7</span>, ms<span class="op">=</span><span class="fl">4.5</span>, label<span class="op">=</span><span class="st">'Sample Cov'</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>ax_eig.semilogy(k, eig_LW, <span class="st">'s-'</span>, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.7</span>, ms<span class="op">=</span><span class="fl">4.5</span>, label<span class="op">=</span><span class="st">'Ledoit-Wolf'</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>ax_eig.set_xlabel(<span class="st">'Eigenvalue rank'</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>ax_eig.set_ylabel(<span class="st">'Eigenvalue (log scale)'</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>ax_eig.set_title(<span class="st">'Spectrum Compression'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>ax_eig.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>ax_eig.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: rolling alpha</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].fill_between(dates, alphas, alpha<span class="op">=</span><span class="fl">0.25</span>, color<span class="op">=</span><span class="st">'#c53030'</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(dates, alphas, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'α*'</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(alpha_full, ls<span class="op">=</span><span class="st">'--'</span>, color<span class="op">=</span><span class="st">'#555'</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="ss">f'Full-sample α* = </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Shrinkage Intensity α*'</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Optimal Shrinkage Intensity'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: rolling mean correlation</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].fill_between(dates, rho_bars, alpha<span class="op">=</span><span class="fl">0.25</span>, color<span class="op">=</span><span class="st">'#2c5282'</span>)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(dates, rho_bars, color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'ρ̄'</span>)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'Mean Pairwise Correlation ρ̄'</span>)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Average Pairwise Correlation (Target Parameter)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 3: condition numbers</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].semilogy(dates, cond_S,  color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'Sample Cov'</span>)</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].semilogy(dates, cond_LW, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'LW Shrinkage'</span>)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_ylabel(<span class="st">'Condition Number (log)'</span>)</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'Numerical Stability (lower = better conditioned)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_rolling_diagnostics.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"α* range: [</span><span class="sc">{</span>alphas<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>alphas<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">]  |  ρ̄ range: [</span><span class="sc">{</span>rho_bars<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>rho_bars<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: plain-English summary</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>ax_note <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>ax_note.axis(<span class="st">'off'</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Estimated shrinkage weight (α*): </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Condition number (Sample): </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(S_full)<span class="sc">:.0f}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Condition number (Ledoit-Wolf): </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>cond(lw_full)<span class="sc">:.0f}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Interpretation:</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ledoit-Wolf keeps most market structure but"</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">" removes enough noise to make optimization"</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">" materially more stable."</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>ax_note.text(<span class="fl">0.0</span>, <span class="fl">0.95</span>, summary, va<span class="op">=</span><span class="st">'top'</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">'#1f2937'</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>             bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round,pad=0.6'</span>, fc<span class="op">=</span><span class="st">'#f8fafc'</span>, ec<span class="op">=</span><span class="st">'#cbd5e1'</span>))</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 3/4: correlation comparison only</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col_idx, (mat, title) <span class="kw">in</span> <span class="bu">enumerate</span>([</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    (S_corr,  <span class="st">'Sample Correlation'</span>),</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    (LW_corr, <span class="ss">f'Ledoit-Wolf Correlation (α = </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ss">)'</span>),</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>]):</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> fig.add_subplot(gs[<span class="dv">1</span>, col_idx])</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(mat, cmap<span class="op">=</span><span class="st">'RdYlBu_r'</span>, vmin<span class="op">=-</span><span class="fl">0.1</span>, vmax<span class="op">=</span><span class="fl">1.0</span>, aspect<span class="op">=</span><span class="st">'auto'</span>)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="fl">10.5</span>)</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(im, ax<span class="op">=</span>ax, fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'M1 — Ledoit-Wolf: Cleaner Signal, Same Core Structure'</span>,</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_eigenvalues_heatmaps.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m1_ledoit_wolf_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="f5216369" class="cell">
+</div>
+</div>
+<div id="5xwov6tt68i" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:18:42.130349Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:18:42.130164Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:19:40.397217Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:19:40.396523Z&quot;}}" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §5  Rolling Backtest ────────────────────────────────────────────────────</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation window: 252 days. Weights re-estimated every 21 days (monthly).</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on the next 21 days, roll forward, repeat.</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> cov.shape[<span class="dv">0</span>]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> w: w <span class="op">@</span> cov <span class="op">@</span> w,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        np.ones(n) <span class="op">/</span> n,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">'SLSQP'</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        bounds<span class="op">=</span>[(<span class="dv">0</span>, <span class="dv">1</span>)] <span class="op">*</span> n,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        constraints<span class="op">=</span>[{<span class="st">'type'</span>: <span class="st">'eq'</span>, <span class="st">'fun'</span>: <span class="kw">lambda</span> w: w.<span class="bu">sum</span>() <span class="op">-</span> <span class="dv">1</span>}],</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        options<span class="op">=</span>{<span class="st">'ftol'</span>: <span class="fl">1e-12</span>, <span class="st">'maxiter'</span>: <span class="dv">1000</span>}</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x <span class="cf">if</span> res.success <span class="cf">else</span> np.ones(n) <span class="op">/</span> n</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>LOOKBACK <span class="op">=</span> <span class="dv">252</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>REBAL    <span class="op">=</span> <span class="dv">21</span>    <span class="co"># rebalance every month</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>port_rets <span class="op">=</span> {<span class="st">'Equal Weight'</span>: [], <span class="st">'Sample Cov MVO'</span>: [], <span class="st">'LW Estimator MVO'</span>: []}</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>port_idx  <span class="op">=</span> []</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> start <span class="kw">in</span> <span class="bu">range</span>(LOOKBACK, T <span class="op">-</span> REBAL, REBAL):</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    train_ret <span class="op">=</span> returns.iloc[start <span class="op">-</span> LOOKBACK:start]</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    test_ret  <span class="op">=</span> returns.iloc[start:start <span class="op">+</span> REBAL]</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    w_eq  <span class="op">=</span> np.ones(N) <span class="op">/</span> N</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    w_sc  <span class="op">=</span> min_variance_portfolio(train_ret.cov().values)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    w_lw  <span class="op">=</span> min_variance_portfolio(estimate_covariance(train_ret))</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> day_idx <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_ret)):</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> test_ret.iloc[day_idx].values</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'Equal Weight'</span>].append(w_eq <span class="op">@</span> r)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'Sample Cov MVO'</span>].append(w_sc <span class="op">@</span> r)</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'LW Estimator MVO'</span>].append(w_lw <span class="op">@</span> r)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        port_idx.append(test_ret.index[day_idx])</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>ret_df <span class="op">=</span> pd.DataFrame(port_rets, index<span class="op">=</span>port_idx)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>pv_df  <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> ret_df).cumprod()</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Drawdown</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drawdown(pv):</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    roll_max <span class="op">=</span> pv.cummax()</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (pv <span class="op">-</span> roll_max) <span class="op">/</span> roll_max</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>dd_df <span class="op">=</span> pv_df.<span class="bu">apply</span>(drawdown)</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"✓ Rolling backtest complete — </span><span class="sc">{</span><span class="bu">len</span>(ret_df)<span class="sc">}</span><span class="ss"> trading days, "</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span>(T <span class="op">-</span> LOOKBACK) <span class="op">//</span> REBAL<span class="sc">}</span><span class="ss"> rebalances"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §4  Visual 2 — Rolling α* and ρ̄ over Time ──────────────────────────────</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how the optimal shrinkage intensity responds to market conditions.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ROLL <span class="op">=</span> <span class="dv">252</span>   <span class="co"># 1-year rolling window</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dates, alphas, rho_bars, cond_S, cond_LW <span class="op">=</span> [], [], [], [], []</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>step <span class="op">=</span> <span class="dv">5</span>  <span class="co"># compute every 5 days to keep runtime short</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ROLL, T, step):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    window <span class="op">=</span> returns.iloc[i<span class="op">-</span>ROLL:i]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    _, a, rb, Sw, _ <span class="op">=</span> estimate_covariance(window, return_diagnostics<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    lw <span class="op">=</span> estimate_covariance(window)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    dates.append(returns.index[i])</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    alphas.append(a)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    rho_bars.append(rb)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    cond_S.append(np.linalg.cond(Sw))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    cond_LW.append(np.linalg.cond(lw))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>dates    <span class="op">=</span> pd.DatetimeIndex(dates)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>alphas   <span class="op">=</span> np.array(alphas)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>rho_bars <span class="op">=</span> np.array(rho_bars)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>cond_S   <span class="op">=</span> np.array(cond_S)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>cond_LW  <span class="op">=</span> np.array(cond_LW)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">9</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'M1 — Rolling Diagnostics (252-day window, step=5 days)'</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: rolling alpha</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].fill_between(dates, alphas, alpha<span class="op">=</span><span class="fl">0.25</span>, color<span class="op">=</span><span class="st">'#c53030'</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(dates, alphas, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'α*'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(alpha_full, ls<span class="op">=</span><span class="st">'--'</span>, color<span class="op">=</span><span class="st">'#555'</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="ss">f'Full-sample α* = </span><span class="sc">{</span>alpha_full<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Shrinkage Intensity α*'</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Optimal Shrinkage Intensity'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: rolling mean correlation</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].fill_between(dates, rho_bars, alpha<span class="op">=</span><span class="fl">0.25</span>, color<span class="op">=</span><span class="st">'#2c5282'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(dates, rho_bars, color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'ρ̄'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'Mean Pairwise Correlation ρ̄'</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Average Pairwise Correlation (Target Parameter)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 3: condition numbers</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].semilogy(dates, cond_S,  color<span class="op">=</span><span class="st">'#2c5282'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'Sample Cov'</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].semilogy(dates, cond_LW, color<span class="op">=</span><span class="st">'#c53030'</span>, lw<span class="op">=</span><span class="fl">1.6</span>, label<span class="op">=</span><span class="st">'LW Shrinkage'</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_ylabel(<span class="st">'Condition Number (log)'</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'Numerical Stability (lower = better conditioned)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_rolling_diagnostics.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"α* range: [</span><span class="sc">{</span>alphas<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>alphas<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">]  |  ρ̄ range: [</span><span class="sc">{</span>rho_bars<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>rho_bars<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m1_ledoit_wolf_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="37ac72d5" class="cell">
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>α* range: [0.082, 1.000]  |  ρ̄ range: [0.145, 0.635]</code></pre>
+</div>
+</div>
+<div id="f5216369" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:19:40.403083Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:19:40.402894Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:20:24.138426Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:20:24.137009Z&quot;}}" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §6  Visual 3 — Backtest Results ────────────────────────────────────────</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:    <span class="st">'#888888'</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Cov MVO'</span>:  <span class="st">'#2c5282'</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'LW Estimator MVO'</span>:<span class="st">'#c53030'</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                         gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">2</span>, <span class="dv">1</span>], <span class="st">'hspace'</span>: <span class="fl">0.08</span>})</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: cumulative wealth</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> pv_df.columns:</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(pv_df.index, pv_df[k], label<span class="op">=</span>k, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Portfolio Value ($1 start)'</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Rolling Out-of-Sample Backtest  (252-day window, monthly rebalance)'</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                  fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'upper left'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: drawdown</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> dd_df.columns:</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].fill_between(dd_df.index, dd_df[k] <span class="op">*</span> <span class="dv">100</span>, <span class="dv">0</span>,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                         alpha<span class="op">=</span><span class="fl">0.35</span>, color<span class="op">=</span>C[k])</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(dd_df.index, dd_df[k] <span class="op">*</span> <span class="dv">100</span>, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.2</span>, label<span class="op">=</span>k)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'Drawdown (%)'</span>)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">''</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'M1 — Portfolio Performance'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>,</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>             color<span class="op">=</span><span class="st">'#0f1f3d'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_backtest.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Metrics table ──────────────────────────────────────────────────────────</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(ret_series, label):</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    ar   <span class="op">=</span> ret_series.mean() <span class="op">*</span> <span class="dv">252</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    av   <span class="op">=</span> ret_series.std()  <span class="op">*</span> np.sqrt(<span class="dv">252</span>)</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    sr   <span class="op">=</span> ar <span class="op">/</span> av <span class="cf">if</span> av <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    maxdd <span class="op">=</span> drawdown((<span class="dv">1</span> <span class="op">+</span> ret_series).cumprod()).<span class="bu">min</span>()</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    calmar <span class="op">=</span> ar <span class="op">/</span> <span class="bu">abs</span>(maxdd) <span class="cf">if</span> maxdd <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Return (%)'</span>:    <span class="bu">round</span>(ar  <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Volatility (%)'</span>:<span class="bu">round</span>(av  <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Sharpe Ratio'</span>:       <span class="bu">round</span>(sr,         <span class="dv">3</span>),</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Max Drawdown (%)'</span>:   <span class="bu">round</span>(maxdd <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Calmar Ratio'</span>:       <span class="bu">round</span>(calmar,      <span class="dv">3</span>),</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame({k: metrics(ret_df[k], k) <span class="cf">for</span> k <span class="kw">in</span> ret_df.columns}).T</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>display(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §5  Rolling Backtest ────────────────────────────────────────────────────</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation window: 252 days. Weights re-estimated every 21 days (monthly).</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on the next 21 days, roll forward, repeat.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> cov.shape[<span class="dv">0</span>]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> w: w <span class="op">@</span> cov <span class="op">@</span> w,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        np.ones(n) <span class="op">/</span> n,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">'SLSQP'</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        bounds<span class="op">=</span>[(<span class="dv">0</span>, <span class="dv">1</span>)] <span class="op">*</span> n,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        constraints<span class="op">=</span>[{<span class="st">'type'</span>: <span class="st">'eq'</span>, <span class="st">'fun'</span>: <span class="kw">lambda</span> w: w.<span class="bu">sum</span>() <span class="op">-</span> <span class="dv">1</span>}],</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        options<span class="op">=</span>{<span class="st">'ftol'</span>: <span class="fl">1e-12</span>, <span class="st">'maxiter'</span>: <span class="dv">1000</span>}</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x <span class="cf">if</span> res.success <span class="cf">else</span> np.ones(n) <span class="op">/</span> n</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>LOOKBACK <span class="op">=</span> <span class="dv">252</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>REBAL    <span class="op">=</span> <span class="dv">21</span>    <span class="co"># rebalance every month</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>port_rets <span class="op">=</span> {<span class="st">'Equal Weight'</span>: [], <span class="st">'Sample Cov MVO'</span>: [], <span class="st">'LW Estimator MVO'</span>: []}</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>port_idx  <span class="op">=</span> []</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> start <span class="kw">in</span> <span class="bu">range</span>(LOOKBACK, T <span class="op">-</span> REBAL, REBAL):</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    train_ret <span class="op">=</span> returns.iloc[start <span class="op">-</span> LOOKBACK:start]</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    test_ret  <span class="op">=</span> returns.iloc[start:start <span class="op">+</span> REBAL]</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    w_eq  <span class="op">=</span> np.ones(N) <span class="op">/</span> N</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    w_sc  <span class="op">=</span> min_variance_portfolio(train_ret.cov().values)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    w_lw  <span class="op">=</span> min_variance_portfolio(estimate_covariance(train_ret))</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> day_idx <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_ret)):</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> test_ret.iloc[day_idx].values</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'Equal Weight'</span>].append(w_eq <span class="op">@</span> r)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'Sample Cov MVO'</span>].append(w_sc <span class="op">@</span> r)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        port_rets[<span class="st">'LW Estimator MVO'</span>].append(w_lw <span class="op">@</span> r)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        port_idx.append(test_ret.index[day_idx])</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>ret_df <span class="op">=</span> pd.DataFrame(port_rets, index<span class="op">=</span>port_idx)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>pv_df  <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> ret_df).cumprod()</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Drawdown</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drawdown(pv):</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    roll_max <span class="op">=</span> pv.cummax()</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (pv <span class="op">-</span> roll_max) <span class="op">/</span> roll_max</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>dd_df <span class="op">=</span> pv_df.<span class="bu">apply</span>(drawdown)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"✓ Rolling backtest complete — </span><span class="sc">{</span><span class="bu">len</span>(ret_df)<span class="sc">}</span><span class="ss"> trading days, "</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span>(T <span class="op">-</span> LOOKBACK) <span class="op">//</span> REBAL<span class="sc">}</span><span class="ss"> rebalances"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Rolling backtest complete — 1491 trading days, 71 rebalances</code></pre>
 </div>
-</section>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">§7 Key Takeaways</h2>
-<section id="what-the-visuals-show" class="level3">
-<h3 class="anchored" data-anchor-id="what-the-visuals-show">What the visuals show</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
+</div>
+<div id="37ac72d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:20:24.147427Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:20:24.147001Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:20:24.821305Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:20:24.820859Z&quot;}}" data-execution_count="5">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §6  Visual 3 — Backtest Results ────────────────────────────────────────</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:    <span class="st">'#888888'</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Cov MVO'</span>:  <span class="st">'#2c5282'</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'LW Estimator MVO'</span>:<span class="st">'#c53030'</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                         gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">2</span>, <span class="dv">1</span>], <span class="st">'hspace'</span>: <span class="fl">0.08</span>})</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: cumulative wealth</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> pv_df.columns:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(pv_df.index, pv_df[k], label<span class="op">=</span>k, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Portfolio Value ($1 start)'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Rolling Out-of-Sample Backtest  (252-day window, monthly rebalance)'</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                  fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'upper left'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: drawdown</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> dd_df.columns:</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].fill_between(dd_df.index, dd_df[k] <span class="op">*</span> <span class="dv">100</span>, <span class="dv">0</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                         alpha<span class="op">=</span><span class="fl">0.35</span>, color<span class="op">=</span>C[k])</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(dd_df.index, dd_df[k] <span class="op">*</span> <span class="dv">100</span>, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.2</span>, label<span class="op">=</span>k)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'Drawdown (%)'</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">''</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'M1 — Portfolio Performance'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>             color<span class="op">=</span><span class="st">'#0f1f3d'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'figures/m1_backtest.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Metrics table ──────────────────────────────────────────────────────────</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(ret_series, label):</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    ar   <span class="op">=</span> ret_series.mean() <span class="op">*</span> <span class="dv">252</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    av   <span class="op">=</span> ret_series.std()  <span class="op">*</span> np.sqrt(<span class="dv">252</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    sr   <span class="op">=</span> ar <span class="op">/</span> av <span class="cf">if</span> av <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    maxdd <span class="op">=</span> drawdown((<span class="dv">1</span> <span class="op">+</span> ret_series).cumprod()).<span class="bu">min</span>()</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    calmar <span class="op">=</span> ar <span class="op">/</span> <span class="bu">abs</span>(maxdd) <span class="cf">if</span> maxdd <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Return (%)'</span>:    <span class="bu">round</span>(ar  <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ann. Volatility (%)'</span>:<span class="bu">round</span>(av  <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Sharpe Ratio'</span>:       <span class="bu">round</span>(sr,         <span class="dv">3</span>),</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Max Drawdown (%)'</span>:   <span class="bu">round</span>(maxdd <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Calmar Ratio'</span>:       <span class="bu">round</span>(calmar,      <span class="dv">3</span>),</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame({k: metrics(ret_df[k], k) <span class="cf">for</span> k <span class="kw">in</span> ret_df.columns}).T</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>display(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m1_ledoit_wolf_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th>Chart</th>
-<th>Insight</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Ann. Return (%)</th>
+<th data-quarto-table-cell-role="th">Ann. Volatility (%)</th>
+<th data-quarto-table-cell-role="th">Sharpe Ratio</th>
+<th data-quarto-table-cell-role="th">Max Drawdown (%)</th>
+<th data-quarto-table-cell-role="th">Calmar Ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Eigenvalue spectrum</strong></td>
-<td>LW raises the smallest eigenvalues and compresses the spread — reducing the condition number from ~270 to ~200 and making the optimizer less sensitive to spurious low-variance directions</td>
+<th data-quarto-table-cell-role="th">Equal Weight</th>
+<td>20.00</td>
+<td>19.92</td>
+<td>1.004</td>
+<td>-34.27</td>
+<td>0.584</td>
 </tr>
 <tr class="even">
-<td><strong>Shrinkage dial</strong></td>
-<td>The optimal α* ≈ 0.12 sits comfortably away from either extreme — the sample matrix is noisy but not useless</td>
+<th data-quarto-table-cell-role="th">Sample Cov MVO</th>
+<td>13.44</td>
+<td>17.24</td>
+<td>0.779</td>
+<td>-33.96</td>
+<td>0.396</td>
 </tr>
 <tr class="odd">
-<td><strong>Correlation heatmaps</strong></td>
-<td>The target F is the constant-correlation version of S; LW blends the two, smoothing out the noisiest off-diagonal cells</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling α* and ρ̄</strong></td>
-<td>Both spike during stress periods (higher realized correlations → larger ρ̄; more noise → larger α*) — the estimator automatically tightens its shrinkage when the data is hardest to trust</td>
-</tr>
-<tr class="odd">
-<td><strong>Backtest + drawdown</strong></td>
-<td>LW consistently delivers lower volatility and shallower drawdowns than the sample-cov MVO; the return difference is modest, as expected for a shrinkage-only improvement</td>
+<th data-quarto-table-cell-role="th">LW Estimator MVO</th>
+<td>12.68</td>
+<td>16.99</td>
+<td>0.746</td>
+<td>-33.67</td>
+<td>0.377</td>
 </tr>
 </tbody>
 </table>
+
+</div>
+</div>
+</div>
+<section id="interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
+<section id="main-takeaway" class="level3">
+<h3 class="anchored" data-anchor-id="main-takeaway">Main takeaway</h3>
+<p>Ledoit-Wolf is not trying to invent a new view of the market. It keeps the same broad structure as sample covariance, but removes enough noise to make optimization less fragile.</p>
 </section>
-<section id="why-is-the-return-uplift-small" class="level3">
-<h3 class="anchored" data-anchor-id="why-is-the-return-uplift-small">Why is the return uplift small?</h3>
-<p>With T/N ≈ 35 the sample covariance is already reasonably reliable. Shrinkage primarily helps <strong>stability</strong> (condition number, drawdown recovery) rather than boosting returns. The edge of LW grows as N increases relative to T — which is exactly the regime studied in Modules 2 (RMT) and 5 (PMPT).</p>
+<section id="what-improves" class="level3">
+<h3 class="anchored" data-anchor-id="what-improves">What improves</h3>
+<ul>
+<li>lower sensitivity to tiny, noisy eigenvalues</li>
+<li>better numerical stability in the optimizer</li>
+<li>modestly better drawdown behavior in the backtest</li>
+</ul>
+</section>
+<section id="how-to-compare-it-with-other-modules" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-compare-it-with-other-modules">How to compare it with other modules</h3>
+<ul>
+<li><strong>vs RMT (M2):</strong> LW is simpler and smoother; RMT is more aggressive about cleaning the spectrum</li>
+<li><strong>vs Factor models (M3):</strong> LW is data-driven with fewer structural assumptions; factors add economic structure</li>
+<li><strong>vs DCC-GARCH (M4):</strong> LW is static per rebalance window; DCC-GARCH is designed to adapt faster through time</li>
+</ul>
+<p>If you want a stable default baseline before moving to more specialized estimators, Ledoit-Wolf is usually the right starting point.</p>
 
 
 </section>
@@ -1187,13 +1149,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/summary.html" class="pagination-link" aria-label="Summary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Summary</span></span>
+      <a href="../chapters/summary.html" class="pagination-link" aria-label="Why Estimation Error Dominates">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why Estimation Error Dominates</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/m2_rmt_cleaning.html" class="pagination-link" aria-label="Eigenvalue Cleaning">
-        <span class="nav-page-text"><span class="chapter-title">Eigenvalue Cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/m2_rmt_cleaning.html" class="pagination-link" aria-label="RMT Eigenvalue Cleaning">
+        <span class="nav-page-text"><span class="chapter-title">RMT Eigenvalue Cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

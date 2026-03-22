@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Downside Risk – FARMSA Portfolio Theory</title>
+<title>MPT vs PMPT – FARMSA Portfolio Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -156,7 +156,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html">Applications</a></li><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html"><span class="chapter-title">Downside Risk</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html">Applications</a></li><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html"><span class="chapter-title">MPT vs PMPT</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -183,18 +183,18 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why Estimation Error Dominates</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Covariance Estimators</span></a>
+ <span class="menu-text">Covariance Estimation Methods</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -202,22 +202,22 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Shrinkage Estimation</span></a>
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Eigenvalue Cleaning</span></a>
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Factor Covariance</span></a>
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dynamic Covariance</span></a>
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -233,7 +233,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Downside Risk</span></a>
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">MPT vs PMPT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,15 +253,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#modern-portfolio-theory-and-pmpt" id="toc-modern-portfolio-theory-and-pmpt" class="nav-link active" data-scroll-target="#modern-portfolio-theory-and-pmpt">Modern Portfolio Theory and PMPT</a></li>
-  <li><a href="#motivation-derivation" id="toc-motivation-derivation" class="nav-link" data-scroll-target="#motivation-derivation">§1 Motivation &amp; Derivation</a>
-  <ul class="collapse">
-  <li><a href="#downside-deviation" id="toc-downside-deviation" class="nav-link" data-scroll-target="#downside-deviation">Downside Deviation</a></li>
+  <li><a href="#downside-deviation" id="toc-downside-deviation" class="nav-link active" data-scroll-target="#downside-deviation">Downside Deviation</a></li>
   <li><a href="#sortino-ratio" id="toc-sortino-ratio" class="nav-link" data-scroll-target="#sortino-ratio">Sortino Ratio</a></li>
   <li><a href="#conditional-value-at-risk-cvar" id="toc-conditional-value-at-risk-cvar" class="nav-link" data-scroll-target="#conditional-value-at-risk-cvar">Conditional Value at Risk (CVaR)</a></li>
-  </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">§4 &nbsp; Results</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">§5 Interpretation</a>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
   <ul class="collapse">
   <li><a href="#final-takeaway" id="toc-final-takeaway" class="nav-link" data-scroll-target="#final-takeaway">Final takeaway</a></li>
   </ul></li>
@@ -271,9 +267,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html">Applications</a></li><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html"><span class="chapter-title">Downside Risk</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html">Applications</a></li><li class="breadcrumb-item"><a href="../chapters/m5_mpt_vs_pmpt.html"><span class="chapter-title">MPT vs PMPT</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Downside Risk</span></h1>
+<h1 class="title"><span class="chapter-title">MPT vs PMPT</span></h1>
 </div>
 
 
@@ -290,12 +286,20 @@ window.Quarto = {
 </header>
 
 
-<section id="modern-portfolio-theory-and-pmpt" class="level2">
-<h2 class="anchored" data-anchor-id="modern-portfolio-theory-and-pmpt">Modern Portfolio Theory and PMPT</h2>
-<p>A comparison of variance-based risk with downside-sensitive portfolio evaluation.</p>
-</section>
-<section id="motivation-derivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation-derivation">§1 Motivation &amp; Derivation</h2>
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory | Module 5
+</p>
+<h1>
+MPT vs PMPT (Downside Risk)
+</h1>
+<p class="module-banner-sub">
+Variance-based and downside-risk portfolio construction compared side by side.
+</p>
+<p class="module-banner-author">
+Author: Naael
+</p>
+</div>
 <p>Modern Portfolio Theory (MPT) defines portfolio risk using variance:</p>
 <p><span class="math display">\[
 \sigma_p^2 = w^\top \Sigma w
@@ -358,7 +362,7 @@ window.Quarto = {
 <li><span class="math inline">\(\text{CVaR}_\alpha\)</span> is the <strong>average loss in those worst-case scenarios</strong>.</li>
 </ul>
 <hr>
-<div id="9e0df139-3c9b-423d-b522-4a6189322602" class="cell">
+<div id="9e0df139-3c9b-423d-b522-4a6189322602" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:22.940995Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:22.940556Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:23.952952Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:23.952658Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -373,71 +377,74 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Loaded </span><span class="sc">{</span>returns<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> assets × </span><span class="sc">{</span>returns<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> days"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loaded 50 assets × 1759 days</code></pre>
 </div>
-<div id="0962b5ee-c9f3-45b3-be65-da4cee1cce51" class="cell" data-execution_count="15">
+</div>
+<div id="0962b5ee-c9f3-45b3-be65-da4cee1cce51" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:23.954451Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:23.954371Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:23.956840Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:23.956614Z&quot;}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> cov.shape[<span class="dv">0</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    w0 <span class="op">=</span> np.ones(n) <span class="op">/</span> n</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> w: w <span class="op">@</span> cov <span class="op">@</span> w,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        w0,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">"SLSQP"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        bounds<span class="op">=</span>[(<span class="dv">0</span>,<span class="dv">1</span>)]<span class="op">*</span>n,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        constraints<span class="op">=</span>[{<span class="st">"type"</span>:<span class="st">"eq"</span>,<span class="st">"fun"</span>:<span class="kw">lambda</span> w: w.<span class="bu">sum</span>()<span class="op">-</span><span class="dv">1</span>}]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x <span class="cf">if</span> res.success <span class="cf">else</span> w0</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> downside_portfolio(window):</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    downside <span class="op">=</span> np.minimum(window.values, <span class="dv">0</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.sqrt((downside<span class="op">**</span><span class="dv">2</span>).mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.where(dd <span class="op">&lt;</span> <span class="fl">1e-8</span>, <span class="fl">1e-8</span>, dd)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>dd</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> w <span class="op">/</span> w.<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div id="ce21b61d-9e5b-42e3-be1c-ee8877ad5278" class="cell" data-execution_count="16">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>LOOKBACK <span class="op">=</span> <span class="dv">252</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>REBAL <span class="op">=</span> <span class="dv">21</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>MIN_HIST <span class="op">=</span> <span class="dv">252</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> returns.index[MIN_HIST:]</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> returns.shape[<span class="dv">1</span>]</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pv <span class="op">=</span> {</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Equal Weight"</span>: [<span class="fl">1.0</span>],</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MPT (Min Var)"</span>: [<span class="fl">1.0</span>],</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"PMPT (Downside)"</span>: [<span class="fl">1.0</span>],</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_variance_portfolio(cov):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> cov.shape[<span class="dv">0</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    w0 <span class="op">=</span> np.ones(n) <span class="op">/</span> n</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> w: w <span class="op">@</span> cov <span class="op">@</span> w,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        w0,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">"SLSQP"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        bounds<span class="op">=</span>[(<span class="dv">0</span>,<span class="dv">1</span>)]<span class="op">*</span>n,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        constraints<span class="op">=</span>[{<span class="st">"type"</span>:<span class="st">"eq"</span>,<span class="st">"fun"</span>:<span class="kw">lambda</span> w: w.<span class="bu">sum</span>()<span class="op">-</span><span class="dv">1</span>}]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x <span class="cf">if</span> res.success <span class="cf">else</span> w0</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>cw <span class="op">=</span> {k: np.ones(n)<span class="op">/</span>n <span class="cf">for</span> k <span class="kw">in</span> pv}</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, date <span class="kw">in</span> <span class="bu">enumerate</span>(dates):</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> returns.index.get_loc(date)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> REBAL <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        window <span class="op">=</span> returns.iloc[idx<span class="op">-</span>LOOKBACK:idx]</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"Equal Weight"</span>] <span class="op">=</span> np.ones(n)<span class="op">/</span>n</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"MPT (Min Var)"</span>] <span class="op">=</span> min_variance_portfolio(window.cov().values)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"PMPT (Downside)"</span>] <span class="op">=</span> downside_portfolio(window)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> returns.iloc[idx].values</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> pv:</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        pv[k].append(pv[k][<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> cw[k] <span class="op">@</span> r))</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>portfolio_df <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    pv,</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[dates[<span class="dv">0</span>]<span class="op">-</span>pd.Timedelta(days<span class="op">=</span><span class="dv">1</span>)] <span class="op">+</span> <span class="bu">list</span>(dates)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>portfolio_df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> downside_portfolio(window):</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    downside <span class="op">=</span> np.minimum(window.values, <span class="dv">0</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.sqrt((downside<span class="op">**</span><span class="dv">2</span>).mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.where(dd <span class="op">&lt;</span> <span class="fl">1e-8</span>, <span class="fl">1e-8</span>, dd)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>dd</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> w <span class="op">/</span> w.<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="16">
+</div>
+<div id="ce21b61d-9e5b-42e3-be1c-ee8877ad5278" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:23.958044Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:23.957950Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:24.356616Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:24.356306Z&quot;}}" data-execution_count="3">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>LOOKBACK <span class="op">=</span> <span class="dv">252</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>REBAL <span class="op">=</span> <span class="dv">21</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>MIN_HIST <span class="op">=</span> <span class="dv">252</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> returns.index[MIN_HIST:]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> returns.shape[<span class="dv">1</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pv <span class="op">=</span> {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Equal Weight"</span>: [<span class="fl">1.0</span>],</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MPT (Min Var)"</span>: [<span class="fl">1.0</span>],</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"PMPT (Downside)"</span>: [<span class="fl">1.0</span>],</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cw <span class="op">=</span> {k: np.ones(n)<span class="op">/</span>n <span class="cf">for</span> k <span class="kw">in</span> pv}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, date <span class="kw">in</span> <span class="bu">enumerate</span>(dates):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> returns.index.get_loc(date)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> REBAL <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        window <span class="op">=</span> returns.iloc[idx<span class="op">-</span>LOOKBACK:idx]</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"Equal Weight"</span>] <span class="op">=</span> np.ones(n)<span class="op">/</span>n</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"MPT (Min Var)"</span>] <span class="op">=</span> min_variance_portfolio(window.cov().values)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        cw[<span class="st">"PMPT (Downside)"</span>] <span class="op">=</span> downside_portfolio(window)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> returns.iloc[idx].values</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> pv:</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        pv[k].append(pv[k][<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> cw[k] <span class="op">@</span> r))</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>portfolio_df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    pv,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[dates[<span class="dv">0</span>]<span class="op">-</span>pd.Timedelta(days<span class="op">=</span><span class="dv">1</span>)] <span class="op">+</span> <span class="bu">list</span>(dates)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>portfolio_df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -460,20 +467,20 @@ window.Quarto = {
 <tr class="even">
 <th data-quarto-table-cell-role="th">2024-12-24</th>
 <td>2.810812</td>
-<td>2.287048</td>
-<td>2.630243</td>
+<td>2.287049</td>
+<td>2.630244</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2024-12-26</th>
 <td>2.811398</td>
-<td>2.287524</td>
+<td>2.287525</td>
 <td>2.630339</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">2024-12-27</th>
 <td>2.793693</td>
-<td>2.273118</td>
-<td>2.614815</td>
+<td>2.273119</td>
+<td>2.614816</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2024-12-30</th>
@@ -487,38 +494,38 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="2d73bb57-4a43-40f8-9c2d-6d28b0cade70" class="cell" data-execution_count="17">
+<div id="2d73bb57-4a43-40f8-9c2d-6d28b0cade70" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:24.357948Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:24.357857Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:24.365000Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:24.364772Z&quot;}}" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sharpe(r):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.mean()<span class="op">*</span><span class="dv">252</span> <span class="op">/</span> (r.std()<span class="op">*</span>np.sqrt(<span class="dv">252</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sortino(r):</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    downside <span class="op">=</span> np.minimum(r, <span class="dv">0</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.sqrt((downside<span class="op">**</span><span class="dv">2</span>).mean()) <span class="op">*</span> np.sqrt(<span class="dv">252</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.mean()<span class="op">*</span><span class="dv">252</span> <span class="op">/</span> dd</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cvar(r, alpha<span class="op">=</span><span class="fl">0.95</span>):</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> <span class="op">-</span>r</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    var <span class="op">=</span> np.quantile(loss, alpha)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss[loss <span class="op">&gt;=</span> var].mean()</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> {}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> portfolio_df.columns:</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> portfolio_df[col].pct_change().dropna()</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    metrics[col] <span class="op">=</span> {</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sharpe"</span>: sharpe(r),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sortino"</span>: sortino(r),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Vol"</span>: r.std()<span class="op">*</span>np.sqrt(<span class="dv">252</span>),</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"CVaR"</span>: cvar(r)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>metrics_df <span class="op">=</span> pd.DataFrame(metrics).T</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>metrics_df.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sharpe(r):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.mean()<span class="op">*</span><span class="dv">252</span> <span class="op">/</span> (r.std()<span class="op">*</span>np.sqrt(<span class="dv">252</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sortino(r):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    downside <span class="op">=</span> np.minimum(r, <span class="dv">0</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> np.sqrt((downside<span class="op">**</span><span class="dv">2</span>).mean()) <span class="op">*</span> np.sqrt(<span class="dv">252</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.mean()<span class="op">*</span><span class="dv">252</span> <span class="op">/</span> dd</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cvar(r, alpha<span class="op">=</span><span class="fl">0.95</span>):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> <span class="op">-</span>r</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    var <span class="op">=</span> np.quantile(loss, alpha)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss[loss <span class="op">&gt;=</span> var].mean()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> {}</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> portfolio_df.columns:</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> portfolio_df[col].pct_change().dropna()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    metrics[col] <span class="op">=</span> {</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sharpe"</span>: sharpe(r),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sortino"</span>: sortino(r),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Vol"</span>: r.std()<span class="op">*</span>np.sqrt(<span class="dv">252</span>),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"CVaR"</span>: cvar(r)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>metrics_df <span class="op">=</span> pd.DataFrame(metrics).T</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>metrics_df.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -560,19 +567,19 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="4eea0830-f789-42e1-88c9-173384d9dedb" class="cell" data-execution_count="18">
+<div id="4eea0830-f789-42e1-88c9-173384d9dedb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:24.366248Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:24.366152Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:24.372116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:24.371897Z&quot;}}" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ranks <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>metrics_df.index)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Sharpe Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Sharpe"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Sortino Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Sortino"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Vol Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Vol"</span>].rank(ascending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"CVaR Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"CVaR"</span>].rank(ascending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ranks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ranks <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>metrics_df.index)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Sharpe Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Sharpe"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Sortino Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Sortino"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"Vol Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"Vol"</span>].rank(ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ranks[<span class="st">"CVaR Rank"</span>] <span class="op">=</span> metrics_df[<span class="st">"CVaR"</span>].rank(ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ranks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -615,64 +622,129 @@ window.Quarto = {
 </div>
 </div>
 </section>
-</section>
 <section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">§4 &nbsp; Results</h2>
-<div id="zdz0rvbvgs" class="cell">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<div id="zdz0rvbvgs" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:11:24.373274Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:11:24.373184Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:11:24.655828Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:11:24.655199Z&quot;}}" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:    <span class="st">'#888888'</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'MPT (Min Var)'</span>:   <span class="st">'#2c5282'</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PMPT (Downside)'</span>: <span class="st">'#c53030'</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">4.5</span>))</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>fig.patch.set_facecolor(<span class="st">'#f8fafc'</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Cumulative performance ──</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, col <span class="kw">in</span> <span class="bu">zip</span>(portfolio_df.columns, C):</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    ax.plot(portfolio_df.index, portfolio_df[k], label<span class="op">=</span>k, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Value ($1 start)'</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Cumulative Performance'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>ax.set_facecolor(<span class="st">'white'</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Risk metric comparison (bar chart) ──</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>metric_cols <span class="op">=</span> [<span class="st">'Sharpe'</span>, <span class="st">'Sortino'</span>, <span class="st">'Vol'</span>, <span class="st">'CVaR'</span>]</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>x     <span class="op">=</span> np.arange(<span class="bu">len</span>(metric_cols))</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.25</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (strat, color) <span class="kw">in</span> <span class="bu">enumerate</span>(C.items()):</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> [metrics_df.loc[strat, m] <span class="cf">for</span> m <span class="kw">in</span> metric_cols]</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    ax2.bar(x <span class="op">+</span> i <span class="op">*</span> width, vals, width, label<span class="op">=</span>strat, color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.85</span>)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks(x <span class="op">+</span> width)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>ax2.set_xticklabels(metric_cols)</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Risk &amp; Performance Metrics'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>ax2.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>ax2.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>ax2.set_facecolor(<span class="st">'white'</span>)</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Metrics table ──</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>display(metrics_df.<span class="bu">round</span>(<span class="dv">3</span>).style</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    .set_caption(<span class="st">'Portfolio Metrics'</span>)</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    .set_table_styles([{<span class="st">'selector'</span>: <span class="st">'th'</span>, <span class="st">'props'</span>: [</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'background'</span>, <span class="st">'#0f1f3d'</span>), (<span class="st">'color'</span>, <span class="st">'white'</span>), (<span class="st">'padding'</span>, <span class="st">'6px 12px'</span>)</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    ]}])</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    .highlight_max(subset<span class="op">=</span>[<span class="st">'Sharpe'</span>, <span class="st">'Sortino'</span>], color<span class="op">=</span><span class="st">'#dcfce7'</span>)</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    .highlight_min(subset<span class="op">=</span>[<span class="st">'Vol'</span>, <span class="st">'CVaR'</span>],        color<span class="op">=</span><span class="st">'#dbeafe'</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Equal Weight'</span>:    <span class="st">'#888888'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'MPT (Min Var)'</span>:   <span class="st">'#2c5282'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PMPT (Downside)'</span>: <span class="st">'#c53030'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">4.5</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>fig.patch.set_facecolor(<span class="st">'#f8fafc'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Cumulative performance ──</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, col <span class="kw">in</span> <span class="bu">zip</span>(portfolio_df.columns, C):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    ax.plot(portfolio_df.index, portfolio_df[k], label<span class="op">=</span>k, color<span class="op">=</span>C[k], lw<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Value ($1 start)'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Cumulative Performance'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>ax.set_facecolor(<span class="st">'white'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Risk metric comparison (bar chart) ──</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>metric_cols <span class="op">=</span> [<span class="st">'Sharpe'</span>, <span class="st">'Sortino'</span>, <span class="st">'Vol'</span>, <span class="st">'CVaR'</span>]</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>x     <span class="op">=</span> np.arange(<span class="bu">len</span>(metric_cols))</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (strat, color) <span class="kw">in</span> <span class="bu">enumerate</span>(C.items()):</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> [metrics_df.loc[strat, m] <span class="cf">for</span> m <span class="kw">in</span> metric_cols]</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ax2.bar(x <span class="op">+</span> i <span class="op">*</span> width, vals, width, label<span class="op">=</span>strat, color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.85</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks(x <span class="op">+</span> width)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ax2.set_xticklabels(metric_cols)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Risk &amp; Performance Metrics'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#0f1f3d'</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>ax2.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>ax2.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>ax2.set_facecolor(<span class="st">'white'</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Metrics table ──</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>display(metrics_df.<span class="bu">round</span>(<span class="dv">3</span>).style</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    .set_caption(<span class="st">'Portfolio Metrics'</span>)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    .set_table_styles([{<span class="st">'selector'</span>: <span class="st">'th'</span>, <span class="st">'props'</span>: [</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'background'</span>, <span class="st">'#0f1f3d'</span>), (<span class="st">'color'</span>, <span class="st">'white'</span>), (<span class="st">'padding'</span>, <span class="st">'6px 12px'</span>)</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    ]}])</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    .highlight_max(subset<span class="op">=</span>[<span class="st">'Sharpe'</span>, <span class="st">'Sortino'</span>], color<span class="op">=</span><span class="st">'#dcfce7'</span>)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    .highlight_min(subset<span class="op">=</span>[<span class="st">'Vol'</span>, <span class="st">'CVaR'</span>],        color<span class="op">=</span><span class="st">'#dbeafe'</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m5_mpt_vs_pmpt_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_d8011 th {
+  background: #0f1f3d;
+  color: white;
+  padding: 6px 12px;
+}
+#T_d8011_row0_col0, #T_d8011_row0_col1 {
+  background-color: #dcfce7;
+}
+#T_d8011_row1_col3, #T_d8011_row2_col2, #T_d8011_row2_col3 {
+  background-color: #dbeafe;
+}
+</style>
+
+<div id="T_d8011" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_d8011-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1: Portfolio Metrics
+</figcaption>
+<div aria-describedby="T_d8011-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_d8011" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_d8011_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Sharpe</th>
+<th id="T_d8011_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Sortino</th>
+<th id="T_d8011_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Vol</th>
+<th id="T_d8011_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">CVaR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th id="T_d8011_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Equal Weight</th>
+<td id="T_d8011_row0_col0" class="data row0 col0">0.957000</td>
+<td id="T_d8011_row0_col1" class="data row0 col1">1.362000</td>
+<td id="T_d8011_row0_col2" class="data row0 col2">0.199000</td>
+<td id="T_d8011_row0_col3" class="data row0 col3">0.029000</td>
+</tr>
+<tr class="even">
+<th id="T_d8011_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">MPT (Min Var)</th>
+<td id="T_d8011_row1_col0" class="data row1 col0">0.811000</td>
+<td id="T_d8011_row1_col1" class="data row1 col1">1.137000</td>
+<td id="T_d8011_row1_col2" class="data row1 col2">0.190000</td>
+<td id="T_d8011_row1_col3" class="data row1 col3">0.028000</td>
+</tr>
+<tr class="odd">
+<th id="T_d8011_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">PMPT (Downside)</th>
+<td id="T_d8011_row2_col0" class="data row2 col0">0.939000</td>
+<td id="T_d8011_row2_col1" class="data row2 col1">1.335000</td>
+<td id="T_d8011_row2_col2" class="data row2 col2">0.189000</td>
+<td id="T_d8011_row2_col3" class="data row2 col3">0.028000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">§5 Interpretation</h2>
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
 <p>The results show that portfolio rankings depend materially on how risk is defined.</p>
 <p>Under Sharpe and Sortino (return-adjusted metrics), the Equal Weight portfolio ranks first, followed by the PMPT-based portfolio, while the MPT minimum-variance portfolio performs worst. This reflects the fact that Equal Weight delivers higher average returns, which dominate when performance is evaluated relative to overall volatility.</p>
 <p>However, when portfolios are ranked using volatility and CVaR, the ordering reverses. The PMPT (downside-focused) portfolio ranks first, followed by the MPT portfolio, while Equal Weight performs worst due to its higher total and tail risk.</p>
@@ -1127,8 +1199,8 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/m4_dcc_garch.html" class="pagination-link" aria-label="Dynamic Covariance">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Dynamic Covariance</span></span>
+      <a href="../chapters/m4_dcc_garch.html" class="pagination-link" aria-label="DCC-GARCH Dynamic Covariance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

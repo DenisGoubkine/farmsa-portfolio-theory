@@ -1,7 +1,15 @@
 ---
 title: "Portfolio Optimizer"
 subtitle: "Interface, Estimator Registry, and Deployment Constraints"
+author: "Ryan"
 ---
+
+<div class='module-banner'>
+<p class='module-banner-kicker'>FARMSA Portfolio Theory | Application</p>
+<h1>Portfolio Optimizer</h1>
+<p class='module-banner-sub'>Interactive front-end for applying the estimator library to constrained portfolio construction.</p>
+<p class='module-banner-author'>Author: Ryan</p>
+</div>
 
 ## Purpose
 

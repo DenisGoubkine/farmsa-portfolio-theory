@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ryan">
 
 <title>Portfolio Optimizer – FARMSA Portfolio Theory</title>
 <style>
@@ -150,18 +151,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why Estimation Error Dominates</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Covariance Estimators</span></a>
+ <span class="menu-text">Covariance Estimation Methods</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -169,22 +170,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Shrinkage Estimation</span></a>
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Eigenvalue Cleaning</span></a>
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Factor Covariance</span></a>
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dynamic Covariance</span></a>
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -200,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Downside Risk</span></a>
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MPT vs PMPT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -243,6 +244,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ryan </p>
+          </div>
+  </div>
     
   
     
@@ -253,6 +260,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory | Application
+</p>
+<h1>
+Portfolio Optimizer
+</h1>
+<p class="module-banner-sub">
+Interactive front-end for applying the estimator library to constrained portfolio construction.
+</p>
+<p class="module-banner-author">
+Author: Ryan
+</p>
+</div>
 <section id="purpose" class="level2">
 <h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
 <p>This chapter documents the portfolio optimizer that sits on top of the research stack. Rather than introducing a new covariance estimator, it exposes the estimator library through a control panel that lets a user choose the universe, set constraints, and generate a portfolio from the same analytical machinery used elsewhere in the project.</p>
@@ -789,8 +810,8 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/m5_mpt_vs_pmpt.html" class="pagination-link" aria-label="Downside Risk">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Downside Risk</span></span>
+      <a href="../chapters/m5_mpt_vs_pmpt.html" class="pagination-link" aria-label="MPT vs PMPT">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">MPT vs PMPT</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

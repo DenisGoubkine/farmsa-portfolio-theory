@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Eigenvalue Cleaning – FARMSA Portfolio Theory</title>
+<title>RMT Eigenvalue Cleaning – FARMSA Portfolio Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -156,7 +156,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimators</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">Eigenvalue Cleaning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -183,18 +183,18 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  <a href="../chapters/summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why Estimation Error Dominates</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Covariance Estimators</span></a>
+ <span class="menu-text">Covariance Estimation Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -202,22 +202,22 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Shrinkage Estimation</span></a>
+  <a href="../chapters/m1_ledoit_wolf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Eigenvalue Cleaning</span></a>
+  <a href="../chapters/m2_rmt_cleaning.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Factor Covariance</span></a>
+  <a href="../chapters/m3_factor_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fama-French 3-Factor Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dynamic Covariance</span></a>
+  <a href="../chapters/m4_dcc_garch.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DCC-GARCH Dynamic Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -233,7 +233,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Downside Risk</span></a>
+  <a href="../chapters/m5_mpt_vs_pmpt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MPT vs PMPT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,24 +253,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#random-matrix-theory" id="toc-random-matrix-theory" class="nav-link active" data-scroll-target="#random-matrix-theory">Random Matrix Theory</a></li>
-  <li><a href="#motivation-derivation" id="toc-motivation-derivation" class="nav-link" data-scroll-target="#motivation-derivation">§1 &nbsp; Motivation &amp; Derivation</a>
-  <ul class="collapse">
-  <li><a href="#the-problem-with-sample-covariance" id="toc-the-problem-with-sample-covariance" class="nav-link" data-scroll-target="#the-problem-with-sample-covariance">The Problem with Sample Covariance</a></li>
+  <li><a href="#the-problem-with-sample-covariance" id="toc-the-problem-with-sample-covariance" class="nav-link active" data-scroll-target="#the-problem-with-sample-covariance">The Problem with Sample Covariance</a></li>
   <li><a href="#the-marchenkopastur-law" id="toc-the-marchenkopastur-law" class="nav-link" data-scroll-target="#the-marchenkopastur-law">The Marchenko–Pastur Law</a></li>
   <li><a href="#the-cleaning-algorithm" id="toc-the-cleaning-algorithm" class="nav-link" data-scroll-target="#the-cleaning-algorithm">The Cleaning Algorithm</a></li>
   <li><a href="#why-replace-with-the-mean-not-zero" id="toc-why-replace-with-the-mean-not-zero" class="nav-link" data-scroll-target="#why-replace-with-the-mean-not-zero">Why Replace With the Mean (Not Zero)?</a></li>
-  </ul></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">§7 &nbsp; Interpretation</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimators</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">Eigenvalue Cleaning</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/m1_ledoit_wolf.html">Covariance Estimation Methods</a></li><li class="breadcrumb-item"><a href="../chapters/m2_rmt_cleaning.html"><span class="chapter-title">RMT Eigenvalue Cleaning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Eigenvalue Cleaning</span></h1>
+<h1 class="title"><span class="chapter-title">RMT Eigenvalue Cleaning</span></h1>
 </div>
 
 
@@ -287,12 +283,20 @@ window.Quarto = {
 </header>
 
 
-<section id="random-matrix-theory" class="level2">
-<h2 class="anchored" data-anchor-id="random-matrix-theory">Random Matrix Theory</h2>
-<p>A spectral denoising approach that separates signal-dominant eigenvalues from the noise bulk.</p>
-</section>
-<section id="motivation-derivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation-derivation">§1 &nbsp; Motivation &amp; Derivation</h2>
+<div class="module-banner">
+<p class="module-banner-kicker">
+FARMSA Portfolio Theory | Module 2
+</p>
+<h1>
+RMT Eigenvalue Cleaning
+</h1>
+<p class="module-banner-sub">
+Eigenvalue denoising using a random-matrix noise boundary.
+</p>
+<p class="module-banner-author">
+Author: Pranay
+</p>
+</div>
 <section id="the-problem-with-sample-covariance" class="level3">
 <h3 class="anchored" data-anchor-id="the-problem-with-sample-covariance">The Problem with Sample Covariance</h3>
 <p>we are using <span class="math inline">\(N = 50\)</span> stocks estimated from <span class="math inline">\(T = 1{,}759\)</span> days. The sample covariance matrix contains <span class="math inline">\(\frac{N(N+1)}{2} = 1{,}275\)</span> unique parameters, all estimated from the same data. The ratio <span class="math inline">\(q = N/T \approx 0.028\)</span> means we have roughly <strong>35 observations per parameter</strong>, which sounds adequate but isn’t — most of the off-diagonal structure is pure estimation noise.</p>
@@ -323,7 +327,7 @@ window.Quarto = {
 <section id="why-replace-with-the-mean-not-zero" class="level3">
 <h3 class="anchored" data-anchor-id="why-replace-with-the-mean-not-zero">Why Replace With the Mean (Not Zero)?</h3>
 <p>Setting noise eigenvalues to zero would destroy total variance (the trace of the matrix). Replacing with their mean <span class="math inline">\(\bar{\lambda}_{\text{noise}}\)</span> redistributes that variance uniformly across noise directions the covariance in those directions is neither inflated (as in the raw matrix) nor eliminated, just neutralised.</p>
-<div id="85bb1298" class="cell" data-execution_count="23">
+<div id="85bb1298" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:06.527276Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:06.526678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.585109Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.584811Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §2  Setup &amp; Estimator ──────────────────────────────────</span></span>
@@ -344,77 +348,75 @@ window.Quarto = {
 <pre><code>Loaded 50 assets × 1759 days  |  q = N/T = 0.0284</code></pre>
 </div>
 </div>
-<div id="2f8bc6f9" class="cell" data-execution_count="24">
+<div id="2f8bc6f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.586765Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.586650Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.596136Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.595893Z&quot;}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Covariance estimator implementation</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_covariance(returns_df):</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return an N×N covariance matrix using RMT Eigenvalue Cleaning."""</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    RMT-cleaned covariance matrix using Marchenko-Pastur eigenvalue cleaning.</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Steps USed here are</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">      1. First Compute sample covariance</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">      2. then Eigendecompose it</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">      3. thrid Estimate noise level sigma^2 = mean of all eigenvalues</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">      4. Compute MP upper bound lambda_plus</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">      5. Replace noise eigenvalues (below lambda_plus) with their mean</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">      6. Reconstruct the cleaned matrix</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">    Input:  returns_df  (pd.DataFrame, T x N daily returns)</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Output: N x N numpy array (symmetric, positive semi-definite)</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    T_win, N_assets <span class="op">=</span> returns_df.shape</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> N_assets <span class="op">/</span> T_win</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_covariance(returns_df):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return an N×N covariance matrix using RMT Eigenvalue Cleaning."""</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">    RMT-cleaned covariance matrix using Marchenko-Pastur eigenvalue cleaning.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Steps USed here are</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">      1. First Compute sample covariance</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">      2. then Eigendecompose it</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">      3. thrid Estimate noise level sigma^2 = mean of all eigenvalues</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">      4. Compute MP upper bound lambda_plus</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">      5. Replace noise eigenvalues (below lambda_plus) with their mean</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">      6. Reconstruct the cleaned matrix</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">    Input:  returns_df  (pd.DataFrame, T x N daily returns)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Output: N x N numpy array (symmetric, positive semi-definite)</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    T_win, N_assets <span class="op">=</span> returns_df.shape</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> N_assets <span class="op">/</span> T_win</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> returns_df.cov().values</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> returns_df.cov().values</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eigendecomposed  (eigh is used since we have a 50x50 matrix, symetric so faster w this</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    eigenvalues, eigenvectors <span class="op">=</span> np.linalg.eigh(S)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sorted descending, big eign first</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.argsort(eigenvalues)[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    eigenvalues  <span class="op">=</span> eigenvalues[idx]</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    eigenvectors <span class="op">=</span> eigenvectors[:, idx]</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Estimate noise variancem wwhuch would be the mean of all eigenvalues</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> np.mean(eigenvalues)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Marchenko-Pastur upper bound, </span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">#so this is the bound we use to determine eigenvalues/correlations that are just noise</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">#anything less than this bound is noise, anything above is signal</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    lambda_plus <span class="op">=</span> mean <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> np.sqrt(q))<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    signal_mask <span class="op">=</span> eigenvalues <span class="op">&gt;</span> lambda_plus</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    noise_mask  <span class="op">=</span> <span class="op">~</span>signal_mask</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replaced the noise </span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># eigenvalues with their mean here</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    cleaned_eigenvalues <span class="op">=</span> eigenvalues.copy()</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> noise_mask.<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        cleaned_eigenvalues[noise_mask] <span class="op">=</span> eigenvalues[noise_mask].mean()</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    V <span class="op">=</span> eigenvectors</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> V <span class="op">@</span> np.diag(cleaned_eigenvalues) <span class="op">@</span> V.T</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eigendecomposed  (eigh is used since we have a 50x50 matrix, symetric so faster w this</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    eigenvalues, eigenvectors <span class="op">=</span> np.linalg.eigh(S)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sorted descending, big eign first</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.argsort(eigenvalues)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    eigenvalues  <span class="op">=</span> eigenvalues[idx]</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    eigenvectors <span class="op">=</span> eigenvectors[:, idx]</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Estimate noise variancem wwhuch would be the mean of all eigenvalues</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> np.mean(eigenvalues)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Marchenko-Pastur upper bound, </span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">#so this is the bound we use to determine eigenvalues/correlations that are just noise</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">#anything less than this bound is noise, anything above is signal</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    lambda_plus <span class="op">=</span> mean <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> np.sqrt(q))<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    signal_mask <span class="op">=</span> eigenvalues <span class="op">&gt;</span> lambda_plus</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    noise_mask  <span class="op">=</span> <span class="op">~</span>signal_mask</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replaced the noise </span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># eigenvalues with their mean here</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    cleaned_eigenvalues <span class="op">=</span> eigenvalues.copy()</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> noise_mask.<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        cleaned_eigenvalues[noise_mask] <span class="op">=</span> eigenvalues[noise_mask].mean()</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    V <span class="op">=</span> eigenvectors</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> V <span class="op">@</span> np.diag(cleaned_eigenvalues) <span class="op">@</span> V.T</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> (cleaned_cov <span class="op">+</span> cleaned_cov.T) <span class="op">/</span> <span class="dv">2</span></span>
 <span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    cleaned_cov <span class="op">=</span> (cleaned_cov <span class="op">+</span> cleaned_cov.T) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cleaned_cov</span>
 <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cleaned_cov</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>cov_test <span class="op">=</span> estimate_covariance(returns.iloc[:<span class="dv">252</span>])</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cov_test.shape <span class="op">==</span> (N, N), <span class="ss">f"Expected (</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">), got </span><span class="sc">{</span>cov_test<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(cov_test, cov_test.T), <span class="st">"Not symmetric"</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.<span class="bu">all</span>(np.linalg.eigvalsh(cov_test) <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1e-10</span>), <span class="st">"Negative eigenvalues"</span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Estimator passes sanity checks"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>cov_test <span class="op">=</span> estimate_covariance(returns.iloc[:<span class="dv">252</span>])</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cov_test.shape <span class="op">==</span> (N, N), <span class="ss">f"Expected (</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">), got </span><span class="sc">{</span>cov_test<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(cov_test, cov_test.T), <span class="st">"Not symmetric"</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.<span class="bu">all</span>(np.linalg.eigvalsh(cov_test) <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1e-10</span>), <span class="st">"Negative eigenvalues"</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Estimator passes sanity checks"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>✓ Estimator passes sanity checks</code></pre>
 </div>
 </div>
-<div id="22a1ecb2" class="cell" data-execution_count="25">
+<div id="22a1ecb2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.597398Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.597309Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.601321Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.601129Z&quot;}}" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §3  Eigenvalue Cleaning Diagnostics ───────────────────</span></span>
@@ -471,7 +473,7 @@ Noise eigenvalues  :  46  (92% of spectrum)
 Noise mean (replacement value) = 0.000161</code></pre>
 </div>
 </div>
-<div id="4d0b1144" class="cell" data-execution_count="26">
+<div id="4d0b1144" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.602489Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.602405Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.830288Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.830045Z&quot;}}" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── §4  Visualisation 1: Eigenvalue Spectrum ──────────────</span></span>
@@ -521,7 +523,7 @@ Noise mean (replacement value) = 0.000161</code></pre>
 </div>
 </div>
 </div>
-<div id="82aa0722" class="cell" data-execution_count="27">
+<div id="82aa0722" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.831598Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.831492Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:07.907578Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:07.907265Z&quot;}}" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  §4  Visualisation 2: Zoom Into the Noise Region so we can se more</span></span>
@@ -575,10 +577,10 @@ Noise mean (replacement value) = 0.000161</code></pre>
 check to see the measures again:
   Raw matrix trace      = 0.019259
   Cleaned matrix trace  = 0.019259
-  Difference            = 6.94e-18</code></pre>
+  Difference            = 3.47e-18</code></pre>
 </div>
 </div>
-<div id="f5216369" class="cell" data-execution_count="28">
+<div id="f5216369" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:07.909003Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:07.908896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.105764Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.105390Z&quot;}}" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pre Added Template Cell for Backtest from Denis</span></span>
@@ -629,7 +631,7 @@ check to see the measures again:
 <pre><code>✓ Backtest complete — 1507 trading days</code></pre>
 </div>
 </div>
-<div id="84ed5470" class="cell" data-execution_count="29">
+<div id="84ed5470" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.110135Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.109968Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.241180Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.240938Z&quot;}}" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#$6 results</span></span>
@@ -714,10 +716,10 @@ check to see the measures again:
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Sample Covariance MVO</th>
-<td>12.59</td>
+<td>12.57</td>
 <td>17.19</td>
 <td>0.732</td>
-<td>-33.95</td>
+<td>-33.96</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">RMT Cleaned MVO</th>
@@ -732,7 +734,7 @@ check to see the measures again:
 </div>
 </div>
 </div>
-<div id="37ac72d5" class="cell" data-execution_count="30">
+<div id="37ac72d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.242462Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.242381Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.321629Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.321369Z&quot;}}" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pre-added template cell for results from Denis</span></span>
@@ -782,10 +784,10 @@ check to see the measures again:
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Sample Cov MVO</th>
-<td>12.59</td>
+<td>12.57</td>
 <td>17.19</td>
 <td>0.73</td>
-<td>-33.95</td>
+<td>-33.96</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Your Estimator MVO</th>
@@ -800,7 +802,7 @@ check to see the measures again:
 </div>
 </div>
 </div>
-<div id="564e6071" class="cell" data-execution_count="31">
+<div id="564e6071" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-22T04:10:25.323037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-22T04:10:25.322958Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-22T04:10:25.399167Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-22T04:10:25.398940Z&quot;}}" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Also here is a little loop at Rolling Volatility</span></span>
@@ -848,9 +850,8 @@ is producing more stable portfolio weights over time.</code></pre>
 </div>
 </div>
 </section>
-</section>
 <section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">§7 &nbsp; Interpretation</h2>
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
 <!-- ~200 words. Beat the baseline? When/why? Limitations? One-sentence takeaway. -->
 <p>Of the 50 eigenvalues in the sample covariance matrix, only 4 exceed the Marchenko–Pastur upper bound of λ+ = 0.000526, meaning 92% of the decomposition (46 eigenvalues) is, by our statistical measures, indistinguishable from pure estimation noise. We found the noise mean replacement value of 0.000161, and the trace is preserved at 0.019259 with a difference of 6.94e-18, essentially zero.</p>
 <p>RMT cleaning beat the sample covariance baseline on every meaningful metric. Annualised return improved from 12.59% to 13.99%, and the Sharpe ratio improved from 0.732 to 0.808. Which would be about a 10% gain in risk-adjusted performance, and volatility remained mostly unchanged (17.19% vs 17.32%).</p>
@@ -1307,13 +1308,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/m1_ledoit_wolf.html" class="pagination-link" aria-label="Shrinkage Estimation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Shrinkage Estimation</span></span>
+      <a href="../chapters/m1_ledoit_wolf.html" class="pagination-link" aria-label="Ledoit-Wolf Shrinkage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Ledoit-Wolf Shrinkage</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/m3_factor_models.html" class="pagination-link" aria-label="Factor Covariance">
-        <span class="nav-page-text"><span class="chapter-title">Factor Covariance</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/m3_factor_models.html" class="pagination-link" aria-label="Fama-French 3-Factor Covariance">
+        <span class="nav-page-text"><span class="chapter-title">Fama-French 3-Factor Covariance</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
