@@ -450,7 +450,7 @@ def compute_efficient_frontier(
     metadata: pd.DataFrame,
     max_weight: float,
     sector_limit: float,
-    n_points: int = 22,
+    n_points: int = 12,
 ) -> tuple[np.ndarray | None, np.ndarray | None]:
     idx = [all_tickers.index(ticker) for ticker in selected_tickers]
     mu_sub = mu[idx]
@@ -458,43 +458,40 @@ def compute_efficient_frontier(
     n_assets = len(idx)
     w0 = np.ones(n_assets) / n_assets
     bounds = [(0.0, min(max_weight, 1.0))] * n_assets
-    constraints = [{"type": "eq", "fun": lambda w: np.sum(w) - 1}]
+    base_constraints = [{"type": "eq", "fun": lambda w: np.sum(w) - 1}]
 
     sectors = metadata["sector"].fillna("Other")
     if sector_limit < 1.0:
         for sector_name in sorted(sectors.unique()):
             sector_idx = [j for j, ticker in enumerate(selected_tickers) if sectors.get(ticker, "Other") == sector_name]
             if sector_idx:
-                constraints.append(
+                base_constraints.append(
                     {"type": "ineq", "fun": lambda w, idx=sector_idx, cap=sector_limit: cap - np.sum(w[idx])}
                 )
 
-    minimum = minimize(
-        lambda w: w @ cov_sub @ w,
-        w0,
-        method="SLSQP",
-        bounds=bounds,
-        constraints=constraints,
-        options={"ftol": 1e-12, "maxiter": 2000},
-    )
+    opt_kw = {"method": "SLSQP", "bounds": bounds,
+              "options": {"ftol": 1e-9, "maxiter": 500}}
+
+    minimum = minimize(lambda w: w @ cov_sub @ w, w0,
+                       constraints=base_constraints, **opt_kw)
     w_min = minimum.x if minimum.success else w0
     ret_min = float(w_min @ mu_sub)
     ret_max = float(min(np.max(mu_sub), np.percentile(mu_sub, 90)))
 
     frontier_returns: list[float] = []
     frontier_vols: list[float] = []
+    prev_w = w0
     for target in np.linspace(ret_min, ret_max, n_points):
-        result = minimize(
+        res = minimize(
             lambda w: w @ cov_sub @ w,
-            w0,
-            method="SLSQP",
-            bounds=bounds,
-            constraints=constraints + [{"type": "eq", "fun": lambda w, t=target: w @ mu_sub - t}],
-            options={"ftol": 1e-12, "maxiter": 2000},
+            prev_w,
+            constraints=base_constraints + [{"type": "eq", "fun": lambda w, t=target: w @ mu_sub - t}],
+            **opt_kw,
         )
-        if result.success:
+        if res.success:
             frontier_returns.append(float(target))
-            frontier_vols.append(float(np.sqrt(result.x @ cov_sub @ result.x * 252)))
+            frontier_vols.append(float(np.sqrt(res.x @ cov_sub @ res.x * 252)))
+            prev_w = res.x  # warm-start next point
 
     if not frontier_returns:
         return None, None
@@ -560,15 +557,19 @@ def render_m6_dynamic_tool() -> None:
         st.error("The max weight is too low for the number of selected stocks.")
         return
 
-    window = returns.iloc[-lookback:]
-    estimator = ESTIMATORS[estimator_name]
-    try:
-        cov = estimator(window)
-    except Exception as exc:
-        st.warning(f"{estimator_name} failed, using sample covariance instead: {exc}")
-        cov = window.cov().values
+    # Cache covariance by (estimator, lookback) so risk/weight tweaks are instant
+    @st.cache_data(show_spinner=False)
+    def _get_cov_mu(est_name: str, lb: int):
+        window = returns.iloc[-lb:]
+        try:
+            cov = ESTIMATORS[est_name](window)
+        except Exception:
+            cov = window.cov().values
+        return cov, estimate_mu(window)
 
-    mu = estimate_mu(window)
+    with st.spinner(f"Computing {estimator_name} covariance…"):
+        cov, mu = _get_cov_mu(estimator_name, lookback)
+
     result = optimize_portfolio(
         mu=mu,
         cov=cov,
