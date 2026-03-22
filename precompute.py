@@ -98,9 +98,52 @@ def m1_rolling_diag(returns: pd.DataFrame, roll: int = 252, step: int = 5) -> di
     }
 
 
+def rolling_backtest_m3(returns: pd.DataFrame, ff_factors: pd.DataFrame,
+                        lookback: int = 252, rebal: int = 21) -> tuple:
+    """Rolling backtest for M3 — needs FF factors for CAPM/FF3 estimators."""
+    from estimators import fama_french, sample_cov
+
+    T, N = returns.shape
+    strategies = ["Equal Weight", "Sample Cov MVO", "CAPM Factor MVO", "FF3 Factor MVO"]
+
+    def capm_cov(returns_df):
+        dates = returns_df.index.intersection(ff_factors.index)
+        excess = returns_df.loc[dates].subtract(ff_factors.loc[dates, "RF"], axis=0)
+        mkt = ff_factors.loc[dates, "Mkt-RF"].values
+        X = np.column_stack([np.ones(len(dates)), mkt])
+        n = excess.shape[1]
+        betas, resid_var = np.zeros(n), np.zeros(n)
+        for i, col in enumerate(excess.columns):
+            coefs = np.linalg.lstsq(X, excess[col].values, rcond=None)[0]
+            betas[i] = coefs[1]
+            resid_var[i] = np.var(excess[col].values - X @ coefs, ddof=1)
+        return np.outer(betas, betas) * np.var(mkt, ddof=1) + np.diag(resid_var)
+
+    ports: dict[str, list] = {k: [] for k in strategies}
+    idx_list: list = []
+    for start in range(lookback, T - rebal, rebal):
+        train = returns.iloc[start - lookback : start]
+        test  = returns.iloc[start : start + rebal]
+        w_eq   = np.ones(N) / N
+        w_sc   = min_var(sample_cov(train))
+        w_capm = min_var(capm_cov(train))
+        w_ff3  = min_var(fama_french(train))
+        for di in range(len(test)):
+            r = test.iloc[di].values
+            ports["Equal Weight"].append(w_eq @ r)
+            ports["Sample Cov MVO"].append(w_sc @ r)
+            ports["CAPM Factor MVO"].append(w_capm @ r)
+            ports["FF3 Factor MVO"].append(w_ff3 @ r)
+            idx_list.append(test.index[di])
+    ret_df = pd.DataFrame(ports, index=idx_list)
+    pv_df  = (1 + ret_df).cumprod()
+    return ret_df, pv_df
+
+
 def main() -> None:
     print("Loading data...")
-    returns = pd.read_csv(ROOT / "data" / "returns.csv", index_col=0, parse_dates=True)
+    returns    = pd.read_csv(ROOT / "data" / "returns.csv", index_col=0, parse_dates=True)
+    ff_factors = pd.read_csv(ROOT / "data" / "ff_factors.csv", index_col=0, parse_dates=True)
 
     cache: dict = {}
 
@@ -115,6 +158,9 @@ def main() -> None:
 
     print("M2: rolling backtest (RMT)...")
     cache["m2_backtest"] = rolling_backtest(returns, "RMT Eigenvalue Cleaning")
+
+    print("M3: rolling backtest (CAPM + FF3)...")
+    cache["m3_backtest"] = rolling_backtest_m3(returns, ff_factors)
 
     OUT.parent.mkdir(exist_ok=True)
     with open(OUT, "wb") as f:

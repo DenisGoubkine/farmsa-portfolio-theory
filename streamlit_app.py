@@ -897,6 +897,32 @@ def render_m2_live_output(cell_index: int) -> bool:
     return False
 
 
+_M3_COLORS = {
+    "Equal Weight":    "#888888",
+    "Sample Cov MVO":  "#2c5282",
+    "CAPM Factor MVO": "#d97706",
+    "FF3 Factor MVO":  "#c53030",
+}
+_M3_LABELS = {
+    "Equal Weight":    "Equal Weight (1/N)",
+    "Sample Cov MVO":  "Sample Covariance MVO",
+    "CAPM Factor MVO": "CAPM Factor MVO",
+    "FF3 Factor MVO":  "FF3 Factor MVO",
+}
+
+
+def render_m3_live_output(cell_index: int) -> bool:
+    if cell_index == 9:
+        p = _precomputed_safe()
+        if p is None or "m3_backtest" not in p:
+            st.warning("Precomputed data not found — run `python precompute.py` and redeploy.")
+            return True
+        ret_df, pv_df = p["m3_backtest"]
+        _backtest_chart_and_table(ret_df, pv_df, _M3_LABELS, _M3_COLORS)
+        return True
+    return False
+
+
 def render_preface_live_output(cell_index: int) -> bool:
     prices, returns, _ = load_data()
 
@@ -1130,6 +1156,17 @@ def render_notebook_cells(module_key: str, show_code: bool) -> None:
             if module_key == "Ledoit-Wolf Shrinkage" and cell_index in (4, 5, 7):
                 st.markdown('<div class="output-header">Cell Output</div>', unsafe_allow_html=True)
                 if render_m1_live_output(cell_index):
+                    stream_lines = [
+                        clean_stream_text("".join(o.get("text", [])))
+                        for o in outputs if o.get("output_type") == "stream"
+                    ]
+                    stream_lines = [s for s in stream_lines if s]
+                    if stream_lines:
+                        st.code("\n".join(stream_lines), language="text")
+                    continue
+            if module_key == "Fama-French 3-Factor Covariance" and cell_index == 9:
+                st.markdown('<div class="output-header">Cell Output</div>', unsafe_allow_html=True)
+                if render_m3_live_output(cell_index):
                     stream_lines = [
                         clean_stream_text("".join(o.get("text", [])))
                         for o in outputs if o.get("output_type") == "stream"
