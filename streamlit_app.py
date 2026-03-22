@@ -690,95 +690,28 @@ def clean_stream_text(text: str) -> str:
     return "\n".join(cleaned_lines)
 
 
-# ── M1 / M2 live-render helpers ──────────────────────────────────────────
+# ── M1 / M2 live-render helpers — load from precomputed.pkl ──────────────
 
-@st.cache_data(show_spinner=False)
+@st.cache_resource(show_spinner=False)
+def _precomputed() -> dict:
+    import pickle
+    path = ROOT / "data" / "precomputed.pkl"
+    with open(path, "rb") as f:
+        return pickle.load(f)
+
+
 def _m1_full_diag() -> dict:
-    from sklearn.covariance import LedoitWolf
-    _, returns, _ = load_data()
-    N = returns.shape[1]
-    S = returns.cov().values
-    std = np.sqrt(np.diag(S))
-    corr = S / np.outer(std, std)
-    np.fill_diagonal(corr, 1.0)
-    rho_bar = float((corr.sum() - N) / (N * (N - 1)))
-    F = rho_bar * np.outer(std, std)
-    np.fill_diagonal(F, np.diag(S))
-    lw_fit = LedoitWolf().fit(returns.values)
-    return {
-        "alpha": float(lw_fit.shrinkage_),
-        "rho_bar": rho_bar,
-        "S": S,
-        "F": F,
-        "LW": lw_fit.covariance_,
-        "N": N,
-    }
+    return _precomputed()["m1_full_diag"]
 
 
-@st.cache_data(show_spinner=False)
-def _m1_rolling_diag(roll: int = 252, step: int = 5):
-    from sklearn.covariance import LedoitWolf
-    _, returns, _ = load_data()
-    T = returns.shape[0]
-    dates, alphas, rho_bars, cond_s, cond_lw = [], [], [], [], []
-    for i in range(roll, T, step):
-        w = returns.iloc[i - roll : i]
-        S_w = w.cov().values
-        Nw = S_w.shape[0]
-        std_w = np.sqrt(np.diag(S_w))
-        c_w = S_w / np.outer(std_w, std_w)
-        np.fill_diagonal(c_w, 1.0)
-        lw = LedoitWolf().fit(w.values)
-        dates.append(returns.index[i])
-        alphas.append(float(lw.shrinkage_))
-        rho_bars.append(float((c_w.sum() - Nw) / (Nw * (Nw - 1))))
-        cond_s.append(float(np.linalg.cond(S_w)))
-        cond_lw.append(float(np.linalg.cond(lw.covariance_)))
-    return (
-        pd.DatetimeIndex(dates),
-        np.array(alphas),
-        np.array(rho_bars),
-        np.array(cond_s),
-        np.array(cond_lw),
-    )
+def _m1_rolling_diag():
+    d = _precomputed()["m1_rolling_diag"]
+    return d["dates"], d["alphas"], d["rho_bars"], d["cond_s"], d["cond_lw"]
 
 
-@st.cache_data(show_spinner=False)
-def _rolling_backtest(estimator_key: str, lookback: int = 252, rebal: int = 21):
-    _, returns, _ = load_data()
-    T, N = returns.shape
-    est_fn = ESTIMATORS[estimator_key]
-
-    def min_var(cov):
-        n = cov.shape[0]
-        res = minimize(
-            lambda w: w @ cov @ w,
-            np.ones(n) / n,
-            method="SLSQP",
-            bounds=[(0, 1)] * n,
-            constraints=[{"type": "eq", "fun": lambda w: w.sum() - 1}],
-            options={"ftol": 1e-12, "maxiter": 1000},
-        )
-        return res.x if res.success else np.ones(n) / n
-
-    ports: dict[str, list] = {"Equal Weight": [], "Sample Cov MVO": [], "Estimator MVO": []}
-    idx_list: list = []
-    for start in range(lookback, T - rebal, rebal):
-        train = returns.iloc[start - lookback : start]
-        test = returns.iloc[start : start + rebal]
-        w_eq = np.ones(N) / N
-        w_sc = min_var(train.cov().values)
-        w_est = min_var(est_fn(train))
-        for di in range(len(test)):
-            r = test.iloc[di].values
-            ports["Equal Weight"].append(w_eq @ r)
-            ports["Sample Cov MVO"].append(w_sc @ r)
-            ports["Estimator MVO"].append(w_est @ r)
-            idx_list.append(test.index[di])
-
-    ret_df = pd.DataFrame(ports, index=idx_list)
-    pv_df = (1 + ret_df).cumprod()
-    return ret_df, pv_df
+def _rolling_backtest(estimator_key: str, **_):
+    key = "m1_backtest" if estimator_key == "Ledoit-Wolf Shrinkage" else "m2_backtest"
+    return _precomputed()[key]
 
 
 def _drawdown(pv: pd.Series) -> pd.Series:
