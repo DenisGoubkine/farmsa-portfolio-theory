@@ -700,18 +700,32 @@ def _precomputed() -> dict:
         return pickle.load(f)
 
 
-def _m1_full_diag() -> dict:
-    return _precomputed()["m1_full_diag"]
+def _precomputed_safe() -> dict | None:
+    try:
+        return _precomputed()
+    except Exception:
+        return None
+
+
+def _m1_full_diag() -> dict | None:
+    p = _precomputed_safe()
+    return p["m1_full_diag"] if p else None
 
 
 def _m1_rolling_diag():
-    d = _precomputed()["m1_rolling_diag"]
+    p = _precomputed_safe()
+    if not p:
+        return None, None, None, None, None
+    d = p["m1_rolling_diag"]
     return d["dates"], d["alphas"], d["rho_bars"], d["cond_s"], d["cond_lw"]
 
 
 def _rolling_backtest(estimator_key: str, **_):
+    p = _precomputed_safe()
+    if not p:
+        return None, None
     key = "m1_backtest" if estimator_key == "Ledoit-Wolf Shrinkage" else "m2_backtest"
-    return _precomputed()[key]
+    return p[key]
 
 
 def _drawdown(pv: pd.Series) -> pd.Series:
@@ -862,8 +876,10 @@ def render_m1_live_output(cell_index: int) -> bool:
         return True
 
     if cell_index == 7:
-        # Backtest + drawdown + metrics
         ret_df, pv_df = _rolling_backtest("Ledoit-Wolf Shrinkage")
+        if ret_df is None:
+            st.warning("Precomputed data not found — run `python precompute.py` and redeploy.")
+            return True
         _backtest_chart_and_table(ret_df, pv_df, _M1_LABELS, _M1_COLORS)
         return True
 
@@ -873,6 +889,9 @@ def render_m1_live_output(cell_index: int) -> bool:
 def render_m2_live_output(cell_index: int) -> bool:
     if cell_index == 9:
         ret_df, pv_df = _rolling_backtest("RMT Eigenvalue Cleaning")
+        if ret_df is None:
+            st.warning("Precomputed data not found — run `python precompute.py` and redeploy.")
+            return True
         _backtest_chart_and_table(ret_df, pv_df, _M2_LABELS, _M2_COLORS)
         return True
     return False
