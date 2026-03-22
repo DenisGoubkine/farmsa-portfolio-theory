@@ -1,0 +1,1 @@
+- [feedback_thinking.md](feedback_thinking.md) — User wants short thinking time, max ~5 minutes

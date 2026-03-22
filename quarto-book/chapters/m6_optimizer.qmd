@@ -1,0 +1,93 @@
+---
+title: "Portfolio Optimizer"
+subtitle: "Interface, Estimator Registry, and Deployment Constraints"
+---
+
+## Purpose
+
+This chapter documents the portfolio optimizer that sits on top of the research stack. Rather than introducing a new covariance estimator, it exposes the estimator library through a control panel that lets a user choose the universe, set constraints, and generate a portfolio from the same analytical machinery used elsewhere in the project.
+
+::: {.callout-note}
+This Quarto book is a static site. The live `ipywidgets` dashboard cannot run here directly. To publish the actual interactive optimizer on the web, the notebook would need to be deployed separately through a live runtime such as Voilà or reimplemented as a web app.
+:::
+
+## Tool Architecture
+
+The optimizer is organized into four layers:
+
+1. Data loading and security metadata.
+2. An estimator registry imported from `estimators.py`.
+3. A constrained mean-variance optimization engine.
+4. A presentation layer that renders weights, diagnostics, and the efficient frontier.
+
+## Estimator Registry
+
+The notebook uses a shared estimator registry so the interface can switch methods without duplicating implementation logic.
+
+```python
+sys.path.insert(0, os.path.dirname(os.path.abspath('.')))
+from estimators import ESTIMATORS
+
+estimator_names = list(ESTIMATORS.keys())
+print(f"Loaded {len(ESTIMATORS)} estimators: {', '.join(estimator_names)}")
+```
+
+This design keeps the control panel thin. To add or replace an estimator, the change happens in `estimators.py`, and the interface updates automatically.
+
+## Optimization Engine
+
+At the core of the tool is a constrained optimizer that accepts expected returns, a covariance matrix, and practical portfolio limits.
+
+```python
+def optimize_portfolio(mu, cov, risk_tolerance, max_weight=1.0,
+                       sector_limit=1.0, selected_tickers=None,
+                       all_tickers=None):
+    if all_tickers is None:
+        all_tickers = tickers
+
+    if selected_tickers is not None:
+        idx_map = [all_tickers.index(t) for t in selected_tickers if t in all_tickers]
+    else:
+        idx_map = list(range(len(all_tickers)))
+
+    n = len(idx_map)
+    mu_sub = mu[idx_map]
+    cov_sub = cov[np.ix_(idx_map, idx_map)]
+
+    min_eig = np.min(np.linalg.eigvalsh(cov_sub))
+    if min_eig < 1e-10:
+        cov_sub += np.eye(n) * (1e-10 - min_eig)
+
+    w0 = np.ones(n) / n
+    bounds = [(0, min(max_weight, 1.0))] * n
+    constraints = [{'type': 'eq', 'fun': lambda w: np.sum(w) - 1}]
+```
+
+The engine enforces long-only, fully invested portfolios and supports position caps, sector caps, and ticker-level selection. The regularization step protects the optimizer from near-singular covariance inputs.
+
+## Interface Design
+
+The notebook interface exposes the main portfolio controls directly:
+
+- estimator selection
+- risk tolerance
+- lookback window
+- maximum position size
+- sector concentration cap
+- efficient frontier toggle
+- stock universe selection
+
+Two explicit user actions drive the tool:
+
+- `Optimize`, which computes one portfolio under the current settings
+- `Compare All`, which runs the same setup across the full estimator set
+
+## Why This Chapter Matters
+
+The earlier chapters answer the research question: how should covariance be estimated? This chapter answers the implementation question: how does that research become a usable portfolio-construction tool?
+
+That distinction matters for publication. A static research site can show formulas, code, and results, but a real portfolio workflow also needs an interface layer. This chapter makes that transition explicit.
+
+## Source Notebook
+
+The full notebook source for this module remains available in [M6_portfolio_optimizer.ipynb](../M6_portfolio_optimizer.ipynb).

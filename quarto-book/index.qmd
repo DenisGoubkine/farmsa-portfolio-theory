@@ -1,0 +1,65 @@
+---
+title: "Overview"
+toc: false
+title-block-style: none
+---
+
+::: {.landing-head}
+# Portfolio Theory and Covariance Estimation
+
+::: {.landing-subtitle}
+A comparative study of covariance estimation, portfolio risk, and portfolio construction.
+:::
+
+::: {.landing-lede}
+This site presents the FARMSA portfolio theory project as a compact research book. The focus is practical: when the optimizer is fixed and the covariance estimate changes, the portfolio changes with it.
+:::
+:::
+
+::: {.scope-panel}
+**Dataset and testing frame.** 50 U.S. large-cap equities, January 2018 through December 2024, evaluated under a shared portfolio-construction workflow and a common comparative backtest design.
+:::
+
+::: {.chapter-grid}
+::: {.chapter-card}
+<span class="chapter-card-label">Start Here</span>
+### [Summary](./chapters/summary.html)
+Problem framing, test design, visual comparison, and the cross-module overview.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Estimator</span>
+### [Shrinkage Estimation](./chapters/m1_ledoit_wolf.html)
+Ledoit-Wolf regularization for a more stable covariance matrix.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Estimator</span>
+### [Eigenvalue Cleaning](./chapters/m2_rmt_cleaning.html)
+Random Matrix Theory filtering to separate signal from noise.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Estimator</span>
+### [Factor Covariance](./chapters/m3_factor_models.html)
+CAPM and Fama-French structure in place of unrestricted pairwise estimation.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Estimator</span>
+### [Dynamic Covariance](./chapters/m4_dcc_garch.html)
+DCC-GARCH style time-varying covariance for changing market regimes.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Extension</span>
+### [Downside Risk](./chapters/m5_mpt_vs_pmpt.html)
+Variance-based and downside-sensitive risk frameworks compared.
+:::
+
+::: {.chapter-card}
+<span class="chapter-card-label">Tooling</span>
+### [Portfolio Optimizer](./chapters/m6_optimizer.html)
+The dashboard architecture, estimator registry, and the path to a live web app.
+:::
+:::

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(PATH=\"/Library/TeX/texbin:$PATH\" python3 -m nbconvert --to latex FARMSA_2026_Final.ipynb --output FARMSA_2026_Final)",
+      "Bash(python3 -m nbconvert --to html FARMSA_2026_Final.ipynb --output FARMSA_2026_Final)",
+      "Bash(python3 -m playwright install chromium)",
+      "Bash(python3 -m pip install playwright nbconvert[webpdf] -q)",
+      "Bash(python3 -m nbconvert --to webpdf --allow-chromium-download FARMSA_2026_Final.ipynb --output FARMSA_2026_Final)"
+    ]
+  }
+}

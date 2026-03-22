@@ -1,0 +1,232 @@
+html {
+  --report-serif: "Source Serif 4", Georgia, serif;
+  --report-sans: Calibri, "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --report-ink: #1b1f23;
+  --report-blue: #14213d;
+  --report-border: #d8dee8;
+}
+
+body {
+  font-family: var(--report-serif);
+  color: var(--report-ink);
+  background: #ffffff;
+}
+
+.quarto-title-block .title,
+h1, h2, h3, h4 {
+  font-family: var(--report-sans);
+  color: var(--report-blue);
+  letter-spacing: -0.01em;
+}
+
+.quarto-title-block {
+  border-bottom: 1px solid var(--report-border);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.quarto-title-block .subtitle {
+  max-width: 52rem;
+}
+
+.quarto-title-block .title {
+  font-size: 2.4rem;
+}
+
+.quarto-title-meta {
+  display: none;
+}
+
+#title-block-header {
+  display: none;
+}
+
+.quarto-title-meta,
+.quarto-title-block .subtitle,
+.sidebar-title,
+.sidebar nav,
+.nav-page,
+button,
+summary,
+table,
+thead,
+.pagination,
+.navbar,
+.breadcrumb {
+  font-family: var(--report-sans);
+}
+
+.sidebar nav[role="doc-toc"] ul > li > a,
+.sidebar nav .sidebar-item-text {
+  color: #233044;
+}
+
+.sidebar nav .active {
+  font-weight: 700;
+}
+
+p, li {
+  font-size: 1.03rem;
+  line-height: 1.7;
+}
+
+.hero-panel,
+.scope-panel {
+  border: 1px solid var(--report-border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1.25rem 1.35rem;
+  margin: 0 0 1.25rem 0;
+}
+
+.hero-panel {
+  font-size: 1.08rem;
+}
+
+.landing-head {
+  padding: 0.15rem 0 0.75rem 0;
+  margin-bottom: 0.75rem;
+}
+
+.landing-head h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.landing-subtitle {
+  margin-top: 0.55rem;
+  font-family: var(--report-sans);
+  font-size: 1.02rem;
+  color: #475569;
+}
+
+.landing-lede {
+  margin-top: 0.9rem;
+  max-width: 58rem;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.scope-panel {
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+  margin: 1rem 0;
+}
+
+.chapter-card {
+  border: 1px solid var(--report-border);
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem 0.8rem 0.95rem;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-2px);
+  border-color: #94a3b8;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.chapter-card h3 {
+  margin: 0.2rem 0 0.35rem 0;
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+
+.chapter-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.91rem;
+  line-height: 1.5;
+}
+
+.chapter-card-label {
+  display: inline-block;
+  font-family: var(--report-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.chapter-card a {
+  color: var(--report-blue);
+  text-decoration: none;
+}
+
+.chapter-card a:hover {
+  text-decoration: none;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 0.15rem;
+}
+
+.cell-output,
+pre,
+code {
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+pre {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.callout {
+  border-radius: 6px;
+}
+
+table {
+  font-size: 0.96rem;
+}
+
+.listing-actions-group,
+.quarto-code-tools {
+  font-family: var(--report-sans);
+}
+
+.report-controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.code-toggle-button {
+  appearance: none;
+  border: 1px solid #b8c2d1;
+  background: #ffffff;
+  color: var(--report-blue);
+  border-radius: 6px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.code-toggle-button:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.code-toggle-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+details.code-fold > summary {
+  font-family: var(--report-sans);
+  font-weight: 600;
+}
